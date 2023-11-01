@@ -21,3 +21,6 @@
     - name: Setup Docker.
       ansible.builtin.import_tasks: tasks/docker.yml
 
+    - name: Clone Git Repos
+      ansible.builtin.import_tasks: tasks/git.yml
+
