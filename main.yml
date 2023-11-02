@@ -1,6 +1,6 @@
 ---
 - name: Homelab
-  hosts: UTM
+  hosts: utm
   become: true
 
   pre_tasks:
@@ -22,5 +22,4 @@
       ansible.builtin.import_tasks: tasks/docker.yml
 
     - name: Clone Git Repos
-      ansible.builtin.import_tasks: tasks/git.yml
-
+      ansible.builtin.import_tasks: tasks/git-repo.yml
