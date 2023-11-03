@@ -9,6 +9,7 @@
     repo: "https://github.com/{{ item.repo }}"
     dest: "{{ item.dest }}"
     version: "{{ item.version }}"
+  become: false
   with_items:
     - {repo: 'aleksanderbl29/homelab', dest: '/home/{{ ansible_user }}/homelab', version: 'main'}
 
@@ -18,5 +19,6 @@
     dest: "{{ item.dest }}"
     version: "{{ item.version }}"
   when: "'ha' in ansible_hostname"
+  become: false
   with_items:
     - {repo: 'aleksanderbl29/homeassistant-config', dest: '/home/{{ ansible_user }}/homeassistant/config', version: 'main'}
