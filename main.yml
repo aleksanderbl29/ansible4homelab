@@ -1,6 +1,6 @@
 ---
 - name: Homelab
-  hosts: utm
+  hosts: dev
   become: true
 
   pre_tasks:
