@@ -63,3 +63,13 @@
 # reset_connection doesn't support conditionals.
 - name: Reset connection so docker group is picked up.
   ansible.builtin.meta: reset_connection
+
+- name: Setup docker networks
+  community.docker.docker_network:
+    name: "{{ item }}"
+  loop:
+    - proxy
+    - media
+    - internal
+    - external
+  register: docker_networks
