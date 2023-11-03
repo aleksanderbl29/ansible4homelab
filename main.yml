@@ -2,6 +2,8 @@
 - name: Homelab
   hosts: dev
   become: true
+  vars_files:
+    - /vars/docker-vars.yml
 
   pre_tasks:
     - name: Ensure apt cache is up to date.
@@ -23,3 +25,6 @@
 
     - name: Clone Git Repos
       ansible.builtin.import_tasks: tasks/git-repo.yml
+
+    - name: Deploy Docker Containers
+      ansible.builtin.import_tasks: tasks/docker-deploy.yml
