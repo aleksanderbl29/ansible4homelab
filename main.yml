@@ -23,3 +23,6 @@
 
     - name: Clone Git Repos
       ansible.builtin.import_tasks: tasks/git-repo.yml
+
+    - name: Configure Uptime Kuma
+      ansible.builtin.import_tasks: tasks/uptime-kuma-config.yml
