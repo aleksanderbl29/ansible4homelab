@@ -1,0 +1,17 @@
+---
+- name: Deploy PiHole DNS
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/pihole/pihole-docker/
+    state: present
+  when: "'pihole' in ansible_hostname"
+
+- name: Deploy Watchtower
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/watchtower/
+    state: present
+
+- name: Deploy Home Home Assistant
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/home-assistant/
+    state: present
+  when: "'ha' in ansible_hostname"
