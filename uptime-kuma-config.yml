@@ -1,0 +1,45 @@
+---
+- name: Uptime-kuma
+  hosts: dev
+  become: true
+
+  pre_tasks:
+    - name: Ensure apt cache is up to date
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 360
+
+    - name: Ensure pip is installed
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - python3-pip
+        - python3-venv
+
+    - name: Create virtual python environment
+      ansible.builtin.command:
+        cmd: python3 -m venv .venv
+
+    - name: Activate virtual python environment
+      ansible.builtin.command:
+        cmd: source .venv/bin/activate
+
+    - name: Ensure uptime-kuma-api is installed
+      ansible.builtin.pip:
+        name: uptime-kuma-api
+        # extra_args: --break-system-packages
+        state: present
+
+  tasks:
+    - name: Ensure Uptime Kuma is installed and running
+      community.docker.docker_container:
+        name: uptimekuma
+        image: louislam/uptime-kuma:1.23.3
+        state: started
+
+    - name: Specify inital username and password
+      lucasheld.uptime_kuma.setup:
+        api_url: http://127.0.0.1:3001
+        api_username: admin
+        api_password: testing123
