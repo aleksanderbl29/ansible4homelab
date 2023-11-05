@@ -47,4 +47,4 @@
   community.docker.docker_container:
     name: homer
     image: b4bz/homer:v23.10.1
-    state: present
+    state: started
