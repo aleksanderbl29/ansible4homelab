@@ -4,14 +4,60 @@
     project_src: /home/{{ ansible_user }}/homelab/pihole/pihole-docker/
     state: present
   when: "'pihole' in ansible_hostname"
+  notify: Check pihole is running
 
 - name: Deploy Watchtower
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/watchtower/
     state: present
+  notify: Check watchtower-monitor is running
 
-- name: Deploy Home Home Assistant
+- name: Deploy Home Assistant
   community.docker.docker_compose:
-    project_src: /home/{{ ansible_user }}/homelab/home-assistant/
+    project_src: /home/{{ ansible_user }}/homelab/homeassistant/
     state: present
   when: "'ha' in ansible_hostname"
+  notify: Check Home Assistant is running
+
+- name: Deploy UptimeKuma
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/uptime-kuma/
+    state: present
+  notify: Check uptimekuma is running
+
+- name: Deploy littlelink-server
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/littlelink-server/
+    state: present
+  when: "ansible_memtotal_mb is above 2000"
+  notify: Check littlelink-server is running
+
+- name: Deploy Portainer and traefik on Home Asisstant node
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/portainer-traefik/
+    state: present
+  when: "'ha' in ansible_hostname"
+  notify:
+    - Check portainer is running
+    - Check traefik is running
+
+- name: Deploy traefik
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/traefik/
+    state: present
+  when: "'ha' not in ansible_hostname"
+  notify: Check traefik is running
+
+- name: Deploy portainer agent for secondary nodes
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/portainer-agent/
+    state: present
+  when: "'ha' not in ansible_hostname"
+  notify: Check portainer is running
+
+- name: Deploy Homer dashboard
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/dashboard/
+    state: present
+  when: "ansible_memtotal_mb is above 2000"
+  notify: Check dashboard is running
