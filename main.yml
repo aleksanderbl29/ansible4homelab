@@ -19,6 +19,10 @@
       when:
         - ansible_facts.os_family == "Archlinux"
 
+  handlers:
+    - name: Check containers are running
+      ansible.builtin.import_tasks: handlers/docker-handler.yml
+
   tasks:
     - name: Setup Docker.
       ansible.builtin.import_tasks: tasks/docker.yml
