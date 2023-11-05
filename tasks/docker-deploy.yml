@@ -29,7 +29,7 @@
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/littlelink-server/
     state: present
-  when: "ansible_memtotal_mb is above 2000"
+  when: "ansible_memtotal_mb > 2000"
   notify: Check littlelink-server is running
 
 - name: Deploy Portainer and traefik on Home Asisstant node
@@ -59,5 +59,5 @@
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/dashboard/
     state: present
-  when: "ansible_memtotal_mb is above 2000"
+  when: "ansible_memtotal_mb > 2000"
   notify: Check dashboard is running
