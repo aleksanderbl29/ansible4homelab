@@ -1,6 +1,6 @@
 ---
 - name: Homelab
-  hosts: dev
+  hosts: linode
   become: true
   vars_files:
     - /vars/docker-vars.yml
