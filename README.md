@@ -6,8 +6,14 @@ Ansible config for my homelab
 
 I want to implement these features:
 
+### Larger and structural features
+
 - [ ] Automatic testing of the playbook with molecule in Github Actions
 - [ ] Ability to use same playbook for continuous deployment (CD) triggered from updates to my [homelab](https://github.com/aleksanderbl29/homelab) repository here on Github
+
+### Move manual deployment to ansible
+
+- [ ] [Configuration for Uptime Kuma](https://github.com/aleksanderbl29/ansible4homelab/issues/3)
 
 ## Steps
 
