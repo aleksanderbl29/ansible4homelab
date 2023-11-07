@@ -21,5 +21,8 @@
     - name: Clone Git Repos
       ansible.builtin.import_tasks: tasks/git-repo.yml
 
+    - name: Ensure Home Assistant is ready for deployment
+      ansible.builtin.import_tasks: tasks/home-assistant.yml
+
     - name: Deploy Docker Containers
       ansible.builtin.import_tasks: tasks/docker-deploy.yml
