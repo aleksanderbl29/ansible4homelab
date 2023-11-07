@@ -1,21 +1,18 @@
 ---
 - name: Homelab
-  hosts: dev
+  hosts: utm
   become: true
+  vars_files:
+    - /vars/docker-vars.yml
 
   pre_tasks:
     - name: Ensure apt cache is up to date.
       ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 3600
+        upgrade: "yes"
       when:
         - ansible_facts.os_family == "Debian"
-
-    - name: Ensure pacman cache is up to date
-      community.general.pacman:
-        update_cache: true
-      when:
-        - ansible_facts.os_family == "Archlinux"
 
   tasks:
     - name: Setup Docker.
@@ -23,3 +20,6 @@
 
     - name: Clone Git Repos
       ansible.builtin.import_tasks: tasks/git-repo.yml
+
+    - name: Deploy Docker Containers
+      ansible.builtin.import_tasks: tasks/docker-deploy.yml

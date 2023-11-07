@@ -1,0 +1,50 @@
+---
+- name: Check pihole is running
+  community.docker.docker_container:
+    name: pihole
+    image: aleksanderbl/pihole-unbound:2023.10.0
+    state: started
+
+- name: Check watchtower-monitor is running
+  community.docker.docker_container:
+    name: watchtower-monitor
+    image: containrrr/watchtower:1.6.0
+    state: started
+
+- name: Check Home Assistant is running
+  community.docker.docker_container:
+    name: homeassistant
+    image: linuxserver/homeassistant:2023.11.1
+    ports:
+      - "8123:8123"
+    state: started
+
+- name: Check uptimekuma is running
+  community.docker.docker_container:
+    name: uptimekuma
+    image: louislam/uptime-kuma:1.23.3
+    state: started
+
+- name: Check littlelink-server is running
+  community.docker.docker_container:
+    name: littlelink-server
+    image: littlelink/server:1.0.0
+    state: started
+
+- name: Check traefik is running
+  community.docker.docker_container:
+    name: traefik
+    image: traefik:2.10.5
+    state: started
+
+- name: Check portainer is running
+  community.docker.docker_container:
+    name: portainer
+    image: portainer/portainer-ee:2.19.1
+    state: started
+
+- name: Check dashbaord is running
+  community.docker.docker_container:
+    name: homer
+    image: b4bz/homer:v23.10.1
+    state: started

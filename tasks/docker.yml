@@ -72,4 +72,9 @@
     - media
     - internal
     - external
-  register: docker_networks
+
+- name: Setup docker volumes
+  community.docker.docker_volume:
+    name: "{{ item }}"
+  loop:
+    - portainer_data
