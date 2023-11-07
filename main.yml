@@ -1,6 +1,6 @@
 ---
 - name: Homelab
-  hosts: linode
+  hosts: utm
   become: true
   vars_files:
     - /vars/docker-vars.yml
@@ -10,18 +10,9 @@
       ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 3600
+        upgrade: "yes"
       when:
         - ansible_facts.os_family == "Debian"
-
-    - name: Ensure pacman cache is up to date
-      community.general.pacman:
-        update_cache: true
-      when:
-        - ansible_facts.os_family == "Archlinux"
-
-  handlers:
-    - name: Check containers are running
-      ansible.builtin.import_tasks: handlers/docker-handler.yml
 
   tasks:
     - name: Setup Docker.
