@@ -20,5 +20,6 @@
     version: "{{ item.version }}"
   when: "'ha' in ansible_hostname"
   become: false
+  register: ha_config_change
   with_items:
     - {repo: 'aleksanderbl29/homeassistant-config', dest: '/home/{{ ansible_user }}/homeassistant/config', version: 'main'}
