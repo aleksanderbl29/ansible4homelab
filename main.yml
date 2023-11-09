@@ -4,6 +4,7 @@
   become: true
   vars_files:
     - /vars/docker-vars.yml
+    - secrets/github_actions_secret.yml
 
   pre_tasks:
     - name: Ensure apt cache is up to date.
@@ -15,7 +16,7 @@
         - ansible_facts.os_family == "Debian"
 
   tasks:
-    - name: Setup Docker.
+    - name: Setup Docker
       ansible.builtin.import_tasks: tasks/docker.yml
 
     - name: Clone Git Repos
@@ -27,3 +28,7 @@
 
     - name: Deploy Docker Containers
       ansible.builtin.import_tasks: tasks/docker-deploy.yml
+
+    - name: Setup CD
+      ansible.builtin.import_tasks: tasks/cd.yml
+      when: "'ha' is in ansible_hostname"
