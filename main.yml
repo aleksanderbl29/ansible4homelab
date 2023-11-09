@@ -4,6 +4,7 @@
   become: true
   vars_files:
     - /vars/docker-vars.yml
+    - ./secrets/slack_code.yml
 
   pre_tasks:
     - name: Ensure apt cache is up to date.
@@ -27,3 +28,10 @@
 
     - name: Deploy Docker Containers
       ansible.builtin.import_tasks: tasks/docker-deploy.yml
+
+    - name: Send Slack notification
+      community.general.slack:
+        token: "{{ slack_webhook }}"
+        msg: "Ansible run complete"
+        channel: "#ansible"
+        username: "Ansible"
