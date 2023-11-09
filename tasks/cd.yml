@@ -13,3 +13,29 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_real_group_id }}"
     mode: "0774"
+
+- name: Setup Github Actions runner
+  ansible.builtin.include_role:
+    name: macunha1.github_actions_runner
+  vars:
+    gh_runner_config_labels:
+      - ansible
+      - self-hosted
+      - linux
+      - "{{ ansible_distribution }}"
+      - "{{ ansible_distribution_release }}"
+      - "{{ ansible_hostname }}"
+      - "{{ ansible_architecture }}"
+    gh_runner_config_url: https://github.com/aleksanderbl29/homelab
+    gh_runner_config_token: "{{ secret_github_actions_runner_access_token }}"
+
+
+# - name: Setup github actions runner
+#   ansible.builtin.include_role:
+#     name: monolithprojects.github_actions_runner
+#   vars:
+#     github_actions_runner_github_account: "aleksanderbl29"
+#     github_actions_runner_github_repo: "aleksanderbl29/homelab"
+#     github_actions_runner_runner_user: "{{ ansible_user }}"
+#     github_actions_runner_runner_state: "started"
+#     github_actions_runner_access_token: "{{ secret_github_actions_runner_access_token }}"
