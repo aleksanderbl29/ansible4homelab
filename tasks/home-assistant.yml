@@ -1,0 +1,7 @@
+- name: Copy secrets file to HA host
+  ansible.builtin.copy:
+    src: ../secrets/secrets.yaml
+    dest: /home/{{ ansible_user }}/homeassistant/config/secrets.yaml
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_real_group_id }}"
+    mode: "0774"
