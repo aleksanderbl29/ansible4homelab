@@ -1,0 +1,15 @@
+- name: Create directory "deployment"
+  ansible.builtin.file:
+    path: /home/{{ ansible_user }}/deployment
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_real_group_id }}"
+    mode: "0774"
+
+- name: Copy cd.inventory.ini
+  ansible.builtin.copy:
+    src: ../cd.inventory.ini
+    dest: /home/{{ ansible_user }}/deployment/cd.inventory.ini
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_real_group_id }}"
+    mode: "0774"
