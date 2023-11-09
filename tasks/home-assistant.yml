@@ -5,4 +5,3 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_real_group_id }}"
     mode: "0774"
-  when: "'ha' in ansible_hostname"
