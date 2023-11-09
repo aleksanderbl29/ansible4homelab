@@ -39,6 +39,10 @@ flowchart TD
   main_tasks --> clone_repos  --> |If hostname includes HA| clone_ha_repo
 ``````
 
+## Preparation
+
+When running this playbook [here](./preparation.md) is a list of things that needs to be done first, e.g. collection tokens and creating secrets
+
 ## Credits
 
 I have drawn a lot of inspiration from Jeff Geerling's work with ansible. I also use his book to learn ansible while moving my manual deployment to ansible.
