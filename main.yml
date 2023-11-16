@@ -23,6 +23,12 @@
         - ansible_memtotal_mb > 2000
         - ansible_facts.os_family == "Debian"
 
+    - name: Ensure wifi is disabled on pihole devices
+      ansible.builtin.cron:
+        name: "Disable wifi"
+        special_time: reboot
+        job: ifconfig wlan0 down
+
   tasks:
     - name: Setup Docker.
       ansible.builtin.import_tasks: tasks/docker.yml
