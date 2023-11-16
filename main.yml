@@ -40,7 +40,7 @@
       ansible.builtin.import_tasks: tasks/home-assistant.yml
       when: "'ha' is in ansible_hostname"
 
-    - name: Copy docker env files to host
+    - name: Ensure needed files are in place for docker deployment
       ansible.builtin.import_tasks: tasks/docker-env.yml
 
     - name: Deploy Docker Containers
