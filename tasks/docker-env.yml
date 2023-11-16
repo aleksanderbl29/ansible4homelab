@@ -7,7 +7,7 @@
     group: "{{ ansible_real_group_id }}"
     mode: "0774"
   loop:
-    - { src: "../../homelab/pihole/pihole-docker/.env", dest: "home/{{ ansible_user }}/homelab/pihole/pihole-docker/.env" }
-    - { src: "../../homelab/traefik/.env", dest: "home/{{ ansible_user }}/homelab/traefik/.env" }
-    - { src: "../../homelab/watchtower/.env", dest: "home/{{ ansible_user }}/homelab/watchtower/.env" }
-    - { src: "../../homelab/uptime-kuma/.env", dest: "home/{{ ansible_user }}/homelab/uptime-kuma/.env" }
+    - { src: "../../homelab/pihole/pihole-docker/.env", dest: "/home/{{ ansible_user }}/homelab/pihole/pihole-docker/.env" }
+    - { src: "../../homelab/traefik/.env", dest: "/home/{{ ansible_user }}/homelab/traefik/.env" }
+    - { src: "../../homelab/watchtower/.env", dest: "/home/{{ ansible_user }}/homelab/watchtower/.env" }
+    - { src: "../../homelab/uptime-kuma/.env", dest: "/home/{{ ansible_user }}/homelab/uptime-kuma/.env" }
