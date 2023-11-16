@@ -1,18 +1,26 @@
 ---
 - name: Homelab
-  hosts: dev
+  hosts: prod
   become: true
   vars_files:
     - /vars/docker-vars.yml
     - ./secrets/slack_code.yml
 
   pre_tasks:
-    - name: Ensure apt cache is up to date.
+    - name: Ensure apt cache is up to date
       ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 3600
         upgrade: "yes"
       when:
+        - ansible_facts.os_family == "Debian"
+
+    - name: Ensure Nala is installed on performant devices
+      ansible.builtin.apt:
+        name: nala
+        state: present
+      when:
+        - ansible_memtotal_mb > 2000
         - ansible_facts.os_family == "Debian"
 
   tasks:
@@ -25,6 +33,9 @@
     - name: Ensure Home Assistant is ready for deployment
       ansible.builtin.import_tasks: tasks/home-assistant.yml
       when: "'ha' is in ansible_hostname"
+
+    - name: Copy docker env files to host
+      ansible.builtin.import_tasks: tasks/docker-env.yml
 
     - name: Deploy Docker Containers
       ansible.builtin.import_tasks: tasks/docker-deploy.yml
