@@ -33,12 +33,6 @@
   # when: "ansible_memtotal_mb > 2000"
   # notify: Check littlelink-server is running
 
-- name: Create acme.json files
-  ansible.builtin.file:
-    path: /home/{{ ansible_user }}/homelab/traefik/acme.json
-    state: touch
-    mode: "0600"
-
 - name: HA - Deploy Portainer and traefik
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/portainer-traefik/
