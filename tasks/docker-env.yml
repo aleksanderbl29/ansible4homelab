@@ -18,3 +18,5 @@
     path: /home/{{ ansible_user }}/homelab/traefik/data/acme.json
     state: touch
     mode: "0600"
+    access_time: preserve
+    modification_time: preserve
