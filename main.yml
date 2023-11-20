@@ -49,6 +49,6 @@
     - name: Send Slack notification
       community.general.slack:
         token: "{{ slack_webhook }}"
-        msg: "Ansible run complete at {{ ansible_time_time.iso8601 }}"
+        msg: "Ansible run complete at {{ ansible_date_time.iso8601 }}"
         channel: "#ansible"
         username: "Ansible"
