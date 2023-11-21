@@ -4,6 +4,7 @@
   become: true
   vars_files:
     - /vars/docker-vars.yml
+    - /vars/hyperhdr-vars.yml
     - ./secrets/slack_code.yml
 
   pre_tasks:
@@ -49,7 +50,11 @@
     - name: Setup CD
       ansible.builtin.import_tasks: tasks/cd.yml
       when: "'rpi4-1' is in ansible_hostname"
-      
+
+    - name: Deploy hyperhdr
+      ansible.builtin.import_tasks: tasks/hyperion.yml
+      when: "'hyperhdr' is in ansible_hostname"
+
     - name: Send Slack notification
       community.general.slack:
         token: "{{ slack_webhook }}"
