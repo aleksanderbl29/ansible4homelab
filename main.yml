@@ -30,9 +30,9 @@
         special_time: reboot
         job: ifconfig wlan0 down
 
-  post_tasks:
+  handlers:
     - name: Restart pihole
-      community.general.docker-compose:
+      community.docker.docker_compose:
         project_src: /home/{{ ansible_user }}/homelab/pihole/pihole-docker/
         state: present
         recreate: always
