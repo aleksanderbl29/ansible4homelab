@@ -1,0 +1,22 @@
+---
+- name: Copy env files
+  ansible.builtin.copy:
+    dest: "{{ item.dest }}"
+    src: "{{ item.src }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_real_group_id }}"
+    mode: "0774"
+  loop:
+    - { src: "../../homelab/pihole/pihole-docker/.env", dest: "/home/{{ ansible_user }}/homelab/pihole/pihole-docker/.env" }
+    - { src: "../../homelab/traefik/.env", dest: "/home/{{ ansible_user }}/homelab/traefik/.env" }
+    - { src: "../../homelab/watchtower/.env", dest: "/home/{{ ansible_user }}/homelab/watchtower/.env" }
+    - { src: "../../homelab/uptime-kuma/.env", dest: "/home/{{ ansible_user }}/homelab/uptime-kuma/.env" }
+    - { src: "../../homelab/cloudflare-tunnel/.env", dest: "/home/{{ ansible_user }}/homelab/cloudflare-tunnel/.env" }
+
+- name: Create acme.json files
+  ansible.builtin.file:
+    path: /home/{{ ansible_user }}/homelab/traefik/data/acme.json
+    state: touch
+    mode: "0600"
+    access_time: preserve
+    modification_time: preserve

@@ -70,7 +70,6 @@
   loop:
     - proxy
     - media
-    - internal
     - external
 
 - name: Setup docker volumes
