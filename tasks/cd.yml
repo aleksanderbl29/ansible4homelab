@@ -16,7 +16,13 @@
 
 - name: Copy env file to docker folder
   ansible.builtin.copy:
-
+    dest: "{{ item.dest }}"
+    src: "{{ item.src }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_real_group_id }}"
+    mode: "0774"
+  loop:
+    - { src: "../../homelab/semaphore/.env", dest: "/home/{{ ansible_user }}/homelab/semaphore/.env" }
 
 - name: Generate encryption key for semaphore
   ansible.builtin.command:
@@ -24,6 +30,7 @@
   register: semaphore_encryption_key
 
 - name: Put encryption key in env file
+
 
 - name: Deploy ansible semaphore
   community.docker.docker_compose:
