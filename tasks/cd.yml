@@ -14,20 +14,36 @@
     group: "{{ ansible_real_group_id }}"
     mode: "0774"
 
-- name: Setup Github Actions runner
-  ansible.builtin.include_role:
-    name: macunha1.github_actions_runner
-  vars:
-    gh_runner_config_labels:
-      - ansible
-      - self-hosted
-      - linux
-      - "{{ ansible_distribution }}"
-      - "{{ ansible_distribution_release }}"
-      - "{{ ansible_hostname }}"
-      - "{{ ansible_architecture }}"
-    gh_runner_config_url: https://github.com/aleksanderbl29/homelab
-    gh_runner_config_token: "{{ secret_github_actions_runner_access_token }}"
+- name: Copy env file to docker folder
+  ansible.builtin.copy:
+
+
+- name: Generate encryption key for semaphore
+  ansible.builtin.command:
+    cmd: head -c32 /dev/urandom | base64
+  register: semaphore_encryption_key
+
+- name: Put encryption key in env file
+
+- name: Deploy ansible semaphore
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/semaphore/
+    state: present
+
+# - name: Setup Github Actions runner
+#   ansible.builtin.include_role:
+#     name: macunha1.github_actions_runner
+#   vars:
+#     gh_runner_config_labels:
+#       - ansible
+#       - self-hosted
+#       - linux
+#       - "{{ ansible_distribution }}"
+#       - "{{ ansible_distribution_release }}"
+#       - "{{ ansible_hostname }}"
+#       - "{{ ansible_architecture }}"
+#     gh_runner_config_url: https://github.com/aleksanderbl29/homelab
+#     gh_runner_config_token: "{{ secret_github_actions_runner_access_token }}"
 
 
 # - name: Setup github actions runner
