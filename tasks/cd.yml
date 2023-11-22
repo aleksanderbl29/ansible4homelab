@@ -24,16 +24,16 @@
   loop:
     - { src: "../../homelab/semaphore/.env", dest: "/home/{{ ansible_user }}/homelab/semaphore/.env" }
 
-- name: Generate encryption key for semaphore
-  ansible.builtin.command:
-    cmd: "head -c32 /dev/urandom | base64"
-  register: semaphore_encryption_key
+# - name: Generate encryption key for semaphore
+#   ansible.builtin.command:
+#     cmd: "head -c32 /dev/urandom | base64"
+#   register: semaphore_encryption_key
 
-- name: Put encryption key in env file
-  ansible.builtin.lineinfile:
-    line: "SEMAPHORE_ACCESS_KEY_ENCRYPTION=${{ semaphore_encryption_key.stdout }}"
-    search_string: "SEMAPHORE_ACCESS_KEY_ENCRYPTION="
-    path: /home/{{ ansible_user }}/homelab/semaphore/.env
+# - name: Put encryption key in env file
+#   ansible.builtin.lineinfile:
+#     line: "SEMAPHORE_ACCESS_KEY_ENCRYPTION=${{ semaphore_encryption_key.stdout }}"
+#     search_string: "SEMAPHORE_ACCESS_KEY_ENCRYPTION="
+#     path: /home/{{ ansible_user }}/homelab/semaphore/.env
 
 - name: Deploy ansible semaphore
   community.docker.docker_compose:
