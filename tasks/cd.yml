@@ -30,7 +30,10 @@
   register: semaphore_encryption_key
 
 - name: Put encryption key in env file
-
+  ansible.builtin.lineinfile:
+    line: "SEMAPHORE_ACCESS_KEY_ENCRYPTION=${{ semaphore_encryption_key.stdout }}"
+    search_string: "SEMAPHORE_ACCESS_KEY_ENCRYPTION="
+    path: /home/{{ ansible_user }}/homelab/semaphore/.env
 
 - name: Deploy ansible semaphore
   community.docker.docker_compose:
