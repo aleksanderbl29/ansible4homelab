@@ -26,7 +26,7 @@
 
 - name: Generate encryption key for semaphore
   ansible.builtin.command:
-    cmd: head -c32 /dev/urandom | base64
+    cmd: "head -c32 /dev/urandom | base64"
   register: semaphore_encryption_key
 
 - name: Put encryption key in env file
