@@ -1,0 +1,71 @@
+---
+- name: Remove PiHole DNS
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/pihole/pihole-docker/
+    state: absent
+  # when: "'pihole' in ansible_hostname or 'rpi4-1' in ansible_hostname"
+  # notify: Check pihole is running
+
+- name: Remove Watchtower
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/watchtower/
+    state: absent
+  # notify: Check watchtower-monitor is running
+
+- name: HA - Remove Home Assistant
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/homeassistant/
+    state: absent
+    restarted: true
+  # when: "'ha' in ansible_hostname and ha_config_change.changed == 1"
+  # notify: Check Home Assistant is running
+
+- name: Remove UptimeKuma
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/uptime-kuma/
+    state: absent
+  # notify: Check uptimekuma is running
+
+- name: Remove littlelink-server
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/littlelink-server/
+    state: absent
+  # when: "ansible_memtotal_mb > 2000"
+  # notify: Check littlelink-server is running
+
+- name: HA - Remove Portainer and traefik
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/portainer-traefik/
+    state: absent
+  # when: "'rpi4-1' in ansible_hostname"
+  # notify:
+    # - Check portainer is running
+    # - Check traefik is running
+
+- name: Secondary - Remove traefik
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/traefik/
+    state: absent
+  # when: "'rpi4-1' not in ansible_hostname"
+  # notify: Check traefik is running
+
+- name: Secondary - Remove portainer agent
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/portainer-agent/
+    state: absent
+  # when: "'rpi4-1' not in ansible_hostname"
+  # notify: Check portainer is running
+
+- name: Remove Homer dashboard
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/dashboard/
+    state: absent
+  # when: "ansible_memtotal_mb > 2000"
+  # notify: Check dashboard is running
+
+- name: Remove cloudflare tunnel
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/cloudflare-tunnel/
+    state: absent
+  # when: "ansible_memtotal_mb > 2000"
+  # notify: Check cloudflare-tunnel is running
