@@ -31,4 +31,4 @@
 
     - name: Setup CD
       ansible.builtin.import_tasks: tasks/cd.yml
-      when: "'ha' is in ansible_hostname"
+      when: "'rpi4-1' is in ansible_hostname"
