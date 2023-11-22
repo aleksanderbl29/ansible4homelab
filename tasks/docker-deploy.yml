@@ -3,7 +3,7 @@
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/pihole/pihole-docker/
     state: present
-  when: "'pihole' in ansible_hostname or 'rpi4-1' is ansible_hostname"
+  when: "'pihole' in ansible_hostname or 'rpi4-1' in ansible_hostname"
   # notify: Check pihole is running
 
 - name: Deploy Watchtower

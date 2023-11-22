@@ -1,0 +1,15 @@
+---
+- name: Teardown of Homelab
+  hosts: dev
+  become: true
+
+  tasks:
+    - name: Teardown hyperhdr
+      ansible.builtin.import_tasks: teardown-tasks/hyperhdr.yml
+
+    - name: Send Slack notification
+      community.general.slack:
+        token: "{{ slack_webhook }}"
+        msg: "Teardown with Ansible complete at {{ ansible_datehy_time.iso8601 }}"
+        channel: "#ansible"
+        username: "Ansible"

@@ -1,0 +1,60 @@
+---
+- name: Update and upgrade apt packages
+  become: true
+  ansible.builtin.apt:
+    upgrade: true
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Add hyperion apt gpg key
+  become: true
+  ansible.builtin.apt_key:
+    url: "{{ apt_key_url }}/hyperion.pub.key"
+    keyring: "{{ keyring }}"
+    state: present
+
+- name: Add hyperion repository
+  become: true
+  ansible.builtin.apt_repository:
+    repo: >
+      deb [signed-by={{ keyring }}]
+        {{ apt_key_url }}/ {{ ansible_distribution_release | lower }} main
+    state: present
+
+- name: Update apt packages with new apt repository
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Install hyperion
+  become: true
+  ansible.builtin.apt:
+    name: hyperion
+
+# restart service as the root user
+- name: Disable systemd unit @ {{ ansible_user_id }}    # user
+  become: true
+  ansible.builtin.systemd:
+    name: hyperion@{{ ansible_user_id }}.service
+    state: stopped
+    enabled: false
+
+- name: Enable systemd unit @ root user
+  become: true
+  ansible.builtin.systemd:
+    name: hyperion@root.service
+    state: started
+    enabled: true
+
+- name: Verify hyperiond service
+  become: true
+  ansible.builtin.service:
+    name: hyperion@root.service
+    state: started
+
+- name: Validate connection to hyperion servers
+  ansible.builtin.wait_for:
+    host: "{{ ansible_host }}"
+    port: 8090
+    timeout: 30
+    active_connection_states: ESTABLISHED
