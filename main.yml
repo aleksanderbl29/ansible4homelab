@@ -10,7 +10,7 @@
     - name: Ensure apt cache is up to date
       ansible.builtin.apt:
         update_cache: true
-        cache_valid_time: 3600
+        cache_valid_time: 10800
         upgrade: "yes"
       when:
         - ansible_facts.os_family == "Debian"
@@ -30,7 +30,7 @@
         job: ifconfig wlan0 down
 
   tasks:
-    - name: Setup Docker.
+    - name: Setup Docker
       ansible.builtin.import_tasks: tasks/docker.yml
 
     - name: Clone Git Repos
@@ -46,6 +46,10 @@
     - name: Deploy Docker Containers
       ansible.builtin.import_tasks: tasks/docker-deploy.yml
 
+    - name: Setup CD
+      ansible.builtin.import_tasks: tasks/cd.yml
+      when: "'rpi4-1' is in ansible_hostname"
+      
     - name: Send Slack notification
       community.general.slack:
         token: "{{ slack_webhook }}"

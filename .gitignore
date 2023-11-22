@@ -15,6 +15,7 @@ inventory.ini
 
 # Secrets
 /secrets
+cd.inventory.ini
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
