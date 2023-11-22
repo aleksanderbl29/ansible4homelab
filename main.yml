@@ -1,6 +1,6 @@
 ---
 - name: Homelab
-  hosts: dev
+  hosts: prod
   become: true
   vars_files:
     - /vars/docker-vars.yml
