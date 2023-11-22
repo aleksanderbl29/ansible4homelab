@@ -30,6 +30,13 @@
         special_time: reboot
         job: ifconfig wlan0 down
 
+  post_tasks:
+    - name: Restart pihole
+      community.general.docker-compose:
+        project_src: /home/{{ ansible_user }}/homelab/pihole/pihole-docker/
+        state: present
+        recreate: always
+
   tasks:
     - name: Setup Docker
       ansible.builtin.import_tasks: tasks/docker.yml
