@@ -1,19 +1,19 @@
 ---
-- name: HYPERHDR | Update and upgrade apt packages
+- name: HYPERION | Update and upgrade apt packages
   become: true
   ansible.builtin.apt:
     upgrade: true
     update_cache: true
     cache_valid_time: 3600
 
-- name: HYPERHDR | Add hyperion apt gpg key
+- name: HYPERION | Add hyperion apt gpg key
   become: true
   ansible.builtin.apt_key:
     url: "{{ hyperion_apt_key_url }}/hyperion.pub.key"
     keyring: "{{ hyperion_keyring }}"
     state: present
 
-- name: HYPERHDR | Add hyperion repository
+- name: HYPERION | Add hyperion repository
   become: true
   ansible.builtin.apt_repository:
     repo: >
@@ -21,18 +21,18 @@
         {{ hyperion_apt_key_url }}/ {{ ansible_distribution_release | lower }} main
     state: present
 
-- name: HYPERHDR | Update apt packages with new apt repository
+- name: HYPERION | Update apt packages with new apt repository
   become: true
   ansible.builtin.apt:
     update_cache: true
 
-- name: HYPERHDR | Install hyperion
+- name: HYPERION | Install hyperion
   become: true
   ansible.builtin.apt:
     name: hyperion
 
 # restart service as the root user
-- name: HYPERHDR | Disable systemd unit @ {{ ansible_user_id }}    # user
+- name: HYPERION | Disable systemd unit @ {{ ansible_user_id }}    # user
   become: true
   ansible.builtin.systemd:
     name: hyperion@{{ ansible_user_id }}.service
@@ -40,7 +40,7 @@
     enabled: false
   changed_when: false
 
-- name: HYPERHDR | Enable systemd unit @ root user
+- name: HYPERION | Enable systemd unit @ root user
   become: true
   ansible.builtin.systemd:
     name: hyperion@root.service
@@ -48,13 +48,13 @@
     enabled: true
   changed_when: false
 
-- name: HYPERHDR | Verify hyperiond service
+- name: HYPERION | Verify hyperiond service
   become: true
   ansible.builtin.service:
     name: hyperion@root.service
     state: started
 
-- name: HYPERHDR | Validate connection to hyperion servers
+- name: HYPERION | Validate connection to hyperion servers
   ansible.builtin.wait_for:
     host: "{{ ansible_host }}"
     port: 8090
