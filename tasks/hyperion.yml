@@ -38,6 +38,7 @@
     name: hyperion@{{ ansible_user_id }}.service
     state: stopped
     enabled: false
+  changed_when: false
 
 - name: HYPERHDR | Enable systemd unit @ root user
   become: true
@@ -45,6 +46,7 @@
     name: hyperion@root.service
     state: started
     enabled: true
+  changed_when: false
 
 - name: HYPERHDR | Verify hyperiond service
   become: true
