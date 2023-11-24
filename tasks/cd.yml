@@ -33,6 +33,14 @@
   loop:
     - { src: "../../homelab/semaphore/.env", dest: "/home/{{ ansible_user }}/homelab/semaphore/.env" }
 
+- name: CD | Add secrets folder
+  ansible.builtin.file:
+    path: /home/{{ ansible_user }}/ansible4homelab/secrets/
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_real_group_id }}"
+    mode: "0774"
+
 - name: CD | Copy Ansible secrets to repository
   ansible.builtin.copy:
     dest: "{{ item.dest }}"
@@ -43,7 +51,7 @@
   loop:
     - { src: "./secrets/pihole_secrets.yml", dest: "/home/{{ ansible_user }}/ansible4homelab/secrets/pihole_secrets.yml" }
     - { src: "./secrets/secrets.yaml", dest: "/home/{{ ansible_user }}/ansible4homelab/secrets/secrets.yaml" }
-    - { src: "./secrets/slack_code.yml", dest: "/home/{{ ansible_user }}/ansible4homelab/secrets/pihole_secrets.yml" }
+    - { src: "./secrets/slack_code.yml", dest: "/home/{{ ansible_user }}/ansible4homelab/secrets/slack_code.yml" }
 
 # - name: CD | Generate encryption key for semaphore
 #   ansible.builtin.command:
