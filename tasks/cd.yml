@@ -6,6 +6,15 @@
     group: "{{ ansible_real_group_id }}"
     mode: "0774"
 
+- name: CD | Clone git repo
+  ansible.builtin.git:
+    repo: "https://github.com/{{ item.repo }}"
+    dest: "{{ item.dest }}"
+    version: "{{ item.version }}"
+  become: false
+  with_items:
+    - {repo: 'aleksanderbl29/ansible4homelab', dest: '/home/{{ ansible_user }}/ansible4homelab', version: 'main'}
+
 - name: CD | Copy cd.inventory.ini
   ansible.builtin.copy:
     src: ../cd.inventory.ini
@@ -24,6 +33,18 @@
   loop:
     - { src: "../../homelab/semaphore/.env", dest: "/home/{{ ansible_user }}/homelab/semaphore/.env" }
 
+- name: CD | Copy Ansible secrets to repository
+  ansible.builtin.copy:
+    dest: "{{ item.dest }}"
+    src: "{{ item.src }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_real_group_id }}"
+    mode: "0774"
+  loop:
+    - { src: "./secrets/pihole_secrets.yml", dest: "/home/{{ ansible_user }}/ansible4homelab/secrets/pihole_secrets.yml" }
+    - { src: "./secrets/secrets.yaml", dest: "/home/{{ ansible_user }}/ansible4homelab/secrets/secrets.yaml" }
+    - { src: "./secrets/slack_code.yml", dest: "/home/{{ ansible_user }}/ansible4homelab/secrets/pihole_secrets.yml" }
+
 # - name: CD | Generate encryption key for semaphore
 #   ansible.builtin.command:
 #     cmd: "head -c32 /dev/urandom | base64"
@@ -39,29 +60,3 @@
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/semaphore/
     state: present
-
-# - name: CD | Setup Github Actions runner
-#   ansible.builtin.include_role:
-#     name: macunha1.github_actions_runner
-#   vars:
-#     gh_runner_config_labels:
-#       - ansible
-#       - self-hosted
-#       - linux
-#       - "{{ ansible_distribution }}"
-#       - "{{ ansible_distribution_release }}"
-#       - "{{ ansible_hostname }}"
-#       - "{{ ansible_architecture }}"
-#     gh_runner_config_url: https://github.com/aleksanderbl29/homelab
-#     gh_runner_config_token: "{{ secret_github_actions_runner_access_token }}"
-
-
-# - name: CD | Setup github actions runner
-#   ansible.builtin.include_role:
-#     name: monolithprojects.github_actions_runner
-#   vars:
-#     github_actions_runner_github_account: "aleksanderbl29"
-#     github_actions_runner_github_repo: "aleksanderbl29/homelab"
-#     github_actions_runner_runner_user: "{{ ansible_user }}"
-#     github_actions_runner_runner_state: "started"
-#     github_actions_runner_access_token: "{{ secret_github_actions_runner_access_token }}"
