@@ -1,5 +1,5 @@
 ---
-- name: Copy env files
+- name: PREPARE DOCKER DEPLOYMENT | Copy env files
   ansible.builtin.copy:
     dest: "{{ item.dest }}"
     src: "{{ item.src }}"
@@ -14,7 +14,7 @@
     - { src: "../../homelab/uptime-kuma/.env", dest: "/home/{{ ansible_user }}/homelab/uptime-kuma/.env" }
     - { src: "../../homelab/cloudflare-tunnel/.env", dest: "/home/{{ ansible_user }}/homelab/cloudflare-tunnel/.env" }
 
-- name: Create acme.json files
+- name: PREPARE DOCKER DEPLOYMENT | Create acme.json files
   ansible.builtin.file:
     path: /home/{{ ansible_user }}/homelab/traefik/data/acme.json
     state: touch

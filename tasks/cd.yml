@@ -1,4 +1,4 @@
-- name: Create directory "deployment"
+- name: CD | Create directory "deployment"
   ansible.builtin.file:
     path: /home/{{ ansible_user }}/deployment
     state: directory
@@ -6,7 +6,7 @@
     group: "{{ ansible_real_group_id }}"
     mode: "0774"
 
-- name: Copy cd.inventory.ini
+- name: CD | Copy cd.inventory.ini
   ansible.builtin.copy:
     src: ../cd.inventory.ini
     dest: /home/{{ ansible_user }}/deployment/cd.inventory.ini
@@ -14,7 +14,7 @@
     group: "{{ ansible_real_group_id }}"
     mode: "0774"
 
-- name: Copy env file to docker folder
+- name: CD | Copy env file to docker folder
   ansible.builtin.copy:
     dest: "{{ item.dest }}"
     src: "{{ item.src }}"
@@ -24,23 +24,23 @@
   loop:
     - { src: "../../homelab/semaphore/.env", dest: "/home/{{ ansible_user }}/homelab/semaphore/.env" }
 
-# - name: Generate encryption key for semaphore
+# - name: CD | Generate encryption key for semaphore
 #   ansible.builtin.command:
 #     cmd: "head -c32 /dev/urandom | base64"
 #   register: semaphore_encryption_key
 
-# - name: Put encryption key in env file
+# - name: CD | Put encryption key in env file
 #   ansible.builtin.lineinfile:
 #     line: "SEMAPHORE_ACCESS_KEY_ENCRYPTION=${{ semaphore_encryption_key.stdout }}"
 #     search_string: "SEMAPHORE_ACCESS_KEY_ENCRYPTION="
 #     path: /home/{{ ansible_user }}/homelab/semaphore/.env
 
-- name: Deploy ansible semaphore
+- name: CD | Deploy ansible semaphore
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/semaphore/
     state: present
 
-# - name: Setup Github Actions runner
+# - name: CD | Setup Github Actions runner
 #   ansible.builtin.include_role:
 #     name: macunha1.github_actions_runner
 #   vars:
@@ -56,7 +56,7 @@
 #     gh_runner_config_token: "{{ secret_github_actions_runner_access_token }}"
 
 
-# - name: Setup github actions runner
+# - name: CD | Setup github actions runner
 #   ansible.builtin.include_role:
 #     name: monolithprojects.github_actions_runner
 #   vars:

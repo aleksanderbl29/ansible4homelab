@@ -1,4 +1,4 @@
-- name: Copy secrets file to HA host
+- name: PREPARE HOME ASSISTANT DEPLOYMENT | Copy secrets file to HA host
   ansible.builtin.copy:
     src: ../secrets/secrets.yaml
     dest: /home/{{ ansible_user }}/homeassistant/config/secrets.yaml

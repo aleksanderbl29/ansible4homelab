@@ -1,10 +1,10 @@
 ---
-- name: "Ensure Git is installed"
+- name: CLONE GIT REPO | Ensure Git is installed
   ansible.builtin.apt:
     name: git
     state: present
 
-- name: "Clone General Git Repositories"
+- name: CLONE GIT REPO | Clone General Git Repositories
   ansible.builtin.git:
     repo: "https://github.com/{{ item.repo }}"
     dest: "{{ item.dest }}"
@@ -14,7 +14,7 @@
     - {repo: 'aleksanderbl29/homelab', dest: '/home/{{ ansible_user }}/homelab', version: 'main'}
   notify: Restart pihole
 
-- name: "Clone HomeAssistant Repository"
+- name: CLONE GIT REPO | Clone HomeAssistant Repository
   ansible.builtin.git:
     repo: "https://github.com/{{ item.repo }}"
     dest: "{{ item.dest }}"

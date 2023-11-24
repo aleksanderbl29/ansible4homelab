@@ -1,18 +1,18 @@
 ---
-- name: Deploy PiHole DNS
+- name: DEPLOY CONTAINERS | PiHole DNS
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/pihole/pihole-docker/
     state: present
   when: "'pihole' in ansible_hostname or 'rpi4-1' in ansible_hostname"
   # notify: Check pihole is running
 
-- name: Deploy Watchtower
+- name: DEPLOY CONTAINERS | Watchtower
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/watchtower/
     state: present
   # notify: Check watchtower-monitor is running
 
-- name: HA - Deploy Home Assistant
+- name: DEPLOY CONTAINERS | HA - Home Assistant
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/homeassistant/
     state: present
@@ -20,20 +20,20 @@
   when: "'ha' in ansible_hostname and ha_config_change.changed == 1"
   # notify: Check Home Assistant is running
 
-- name: Deploy UptimeKuma
+- name: DEPLOY CONTAINERS | UptimeKuma
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/uptime-kuma/
     state: present
   # notify: Check uptimekuma is running
 
-- name: Deploy littlelink-server
+- name: DEPLOY CONTAINERS | littlelink-server
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/littlelink-server/
     state: present
   when: "ansible_memtotal_mb > 2000"
   # notify: Check littlelink-server is running
 
-- name: HA - Deploy Portainer and traefik
+- name: DEPLOY CONTAINERS | HA - Portainer and traefik
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/portainer-traefik/
     state: present
@@ -42,28 +42,28 @@
     # - Check portainer is running
     # - Check traefik is running
 
-- name: Secondary - Deploy traefik
+- name: DEPLOY CONTAINERS | Secondary - traefik
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/traefik/
     state: present
   when: "'rpi4-1' not in ansible_hostname"
   # notify: Check traefik is running
 
-- name: Secondary - Deploy portainer agent
+- name: DEPLOY CONTAINERS | Secondary - portainer agent
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/portainer-agent/
     state: present
   when: "'rpi4-1' not in ansible_hostname"
   # notify: Check portainer is running
 
-- name: Deploy Homer dashboard
+- name: DEPLOY CONTAINERS | Homer dashboard
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/dashboard/
     state: present
   when: "ansible_memtotal_mb > 2000"
   # notify: Check dashboard is running
 
-- name: Deploy cloudflare tunnel
+- name: DEPLOY CONTAINERS | cloudflare tunnel
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/cloudflare-tunnel/
     state: present

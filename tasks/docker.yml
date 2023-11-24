@@ -1,31 +1,31 @@
 ---
-- name: Check if Docker is already present.
+- name: SETUP DOCKER | Check if Docker is already present.
   ansible.builtin.command: which docker
   failed_when: false
   changed_when: false
   check_mode: false
   register: docker_command_result
 
-- name: Download Docker install convenience script.
+- name: SETUP DOCKER | Download Docker install convenience script.
   ansible.builtin.get_url:
     url: https://get.docker.com/
     dest: /tmp/get-docker.sh
     mode: "0775"
   when: docker_command_result.rc != 0
 
-- name: Run Docker install convenience script.
+- name: SETUP DOCKER | Run Docker install convenience script.
   ansible.builtin.command: /tmp/get-docker.sh
   environment:
     CHANNEL: stable
   when: docker_command_result.rc != 0
 
-- name: Ensure Docker is started.
+- name: SETUP DOCKER | Ensure Docker is started.
   ansible.builtin.service:
     name: docker
     state: started
     enabled: true
 
-- name: Ensure dependencies are installed (Debian).
+- name: SETUP DOCKER | Ensure dependencies are installed (Debian).
   ansible.builtin.apt:
     name:
       - libffi-dev
@@ -37,7 +37,7 @@
     state: present
   when: ansible_facts.os_family == "Debian"
 
-- name: Ensure dependencies are installed (Archlinux).
+- name: SETUP DOCKER | Ensure dependencies are installed (Archlinux).
   community.general.pacman:
     name:
       - libffi
@@ -49,22 +49,22 @@
     state: present
   when: ansible_facts.os_family == "Archlinux"
 
-- name: Install Docker Compose.
+- name: SETUP DOCKER | Install Docker Compose.
   ansible.builtin.apt:
     name: docker-compose
     state: present
 
-- name: "Ensure user is added to the docker group: {{ ansible_user }}"
+- name: "SETUP DOCKER | Ensure user is added to the docker group: {{ ansible_user }}"
   ansible.builtin.user:
     name: "{{ ansible_user }}"
     groups: docker
     append: true
 
 # reset_connection doesn't support conditionals.
-- name: Reset connection so docker group is picked up.
+- name: SETUP DOCKER | Reset connection so docker group is picked up.
   ansible.builtin.meta: reset_connection
 
-- name: Setup docker networks
+- name: SETUP DOCKER | Setup docker networks
   community.docker.docker_network:
     name: "{{ item }}"
   loop:
@@ -72,7 +72,7 @@
     - media
     - external
 
-- name: Setup docker volumes
+- name: SETUP DOCKER | Setup docker volumes
   community.docker.docker_volume:
     name: "{{ item }}"
   loop:
