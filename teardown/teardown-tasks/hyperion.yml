@@ -20,14 +20,14 @@
 - name: TEARDOWN | Remove hyperion apt gpg key
   become: true
   apt_key:
-    url: "{{ apt_key_url }}/hyperion.pub.key"
-    keyring: "{{ keyring }}"
+    url: "{{ hyperion_apt_key_url }}/hyperion.pub.key"
+    keyring: "{{ hyperion_keyring }}"
     state: absent
 
 - name: TEARDOWN | Remove hyperion repository
   become: true
   apt_repository:
     repo: >
-      deb [signed-by={{ keyring }}]
-        {{ apt_key_url }}/ {{ ansible_distribution_release | lower }} main
+      deb [signed-by={{ hyperion_keyring }}]
+        {{ hyperion_apt_key_url }}/ {{ ansible_distribution_release | lower }} main
     state: absent

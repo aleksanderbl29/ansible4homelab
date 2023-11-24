@@ -20,14 +20,14 @@
 - name: TEARDOWN | Remove hyperhdr apt gpg key
   become: true
   apt_key:
-    url: "{{ apt_key_url }}/hyperhdr.pub.key"
-    keyring: "{{ keyring }}"
+    url: "{{ hyperhdr_apt_key_url }}/hyperhdr.pub.key"
+    keyring: "{{ hyperhdr_keyring }}"
     state: absent
 
 - name: TEARDOWN | Remove hyperhdr repository
   become: true
   apt_repository:
     repo: >
-      deb [signed-by={{ keyring }}]
-        {{ apt_key_url }}/ {{ ansible_distribution_release | lower }} main
+      deb [signed-by={{ hyperhdr_keyring }}]
+        {{ hyperhdr_apt_key_url }}/ {{ ansible_distribution_release | lower }} main
     state: absent
