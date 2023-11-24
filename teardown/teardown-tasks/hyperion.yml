@@ -1,30 +1,30 @@
 ---
-- name: TEARDOWN | Disable hyperhdrd @ root user
+- name: TEARDOWN | Disable hyperiond @ root user
   become: true
   systemd:
-    name: hyperhdr@root.service
+    name: hyperion@root.service
     state: stopped
     enabled: false
 
-- name: TEARDOWN | verify hyperhdrd service is stopped
+- name: TEARDOWN | verify hyperiond service is stopped
   service:
-    name: hyperhdr@root.service
+    name: hyperion@root.service
     state: stopped
 
-- name: TEARDOWN | Uninstall hyperhdr
+- name: TEARDOWN | Uninstall hyperion
   become: true
   apt:
-    name: hyperhdr
+    name: hyperion
     state: absent
 
-- name: TEARDOWN | Remove hyperhdr apt gpg key
+- name: TEARDOWN | Remove hyperion apt gpg key
   become: true
   apt_key:
-    url: "{{ apt_key_url }}/hyperhdr.pub.key"
+    url: "{{ apt_key_url }}/hyperion.pub.key"
     keyring: "{{ keyring }}"
     state: absent
 
-- name: TEARDOWN | Remove hyperhdr repository
+- name: TEARDOWN | Remove hyperion repository
   become: true
   apt_repository:
     repo: >
