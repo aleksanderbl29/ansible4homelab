@@ -3,12 +3,12 @@
   hosts: prod
   become: true
   vars_files:
-    - /vars/docker-vars.yml
-    - /vars/hyperhdr-vars.yml
+    - ./vars/docker-vars.yml
+    - ./vars/hyperhdr-vars.yml
     - ./secrets/slack_code.yml
 
   pre_tasks:
-    - name: Ensure apt cache is up to date
+    - name: PRE TASK | Ensure apt cache is up to date
       ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 10800
@@ -16,7 +16,7 @@
       when:
         - ansible_facts.os_family == "Debian"
 
-    - name: Ensure Nala is installed on performant devices
+    - name: PRE TASK | Ensure Nala is installed on performant devices
       ansible.builtin.apt:
         name: nala
         state: present
@@ -24,14 +24,15 @@
         - ansible_memtotal_mb > 2000
         - ansible_facts.os_family == "Debian"
 
-    - name: Ensure wifi is disabled on pihole devices
+    - name: PRE TASK | Ensure wifi is disabled on wired devices
       ansible.builtin.cron:
         name: "Disable wifi"
         special_time: reboot
         job: ifconfig wlan0 down
+      when: "'hyperhdr' is not in ansible_hostname"
 
   handlers:
-    - name: Restart pihole
+    - name: HANDLER | Restart pihole
       community.docker.docker_compose:
         project_src: /home/{{ ansible_user }}/homelab/pihole/pihole-docker/
         state: present
@@ -40,19 +41,23 @@
   tasks:
     - name: Setup Docker
       ansible.builtin.import_tasks: tasks/docker.yml
+      when: "'hyperhdr' is not in ansible_hostname"
 
     - name: Clone Git Repos
       ansible.builtin.import_tasks: tasks/git-repo.yml
+      when: "'hyperhdr' is not in ansible_hostname"
 
-    - name: Ensure Home Assistant is ready for deployment
+    - name: Prepare Home Assistant deployment
       ansible.builtin.import_tasks: tasks/home-assistant.yml
       when: "'ha' is in ansible_hostname"
 
-    - name: Ensure needed files are in place for docker deployment
+    - name: Prepare Docker deployment
       ansible.builtin.import_tasks: tasks/docker-env.yml
+      when: "'hyperhdr' is not in ansible_hostname"
 
     - name: Deploy Docker Containers
       ansible.builtin.import_tasks: tasks/docker-deploy.yml
+      when: "'hyperhdr' is not in ansible_hostname"
 
     - name: Setup CD
       ansible.builtin.import_tasks: tasks/cd.yml
@@ -62,9 +67,20 @@
       ansible.builtin.import_tasks: tasks/hyperion.yml
       when: "'hyperhdr' is in ansible_hostname"
 
-    - name: Send Slack notification
+  post_tasks:
+    - name: POST TASK | Get temperature of devices
+      ansible.builtin.command:
+        cmd: vcgencmd measure_temp
+      changed_when: false
+      register: temperature
+
+    - name: POST TASK | Print temperature
+      ansible.builtin.debug:
+        msg: "{{ temperature.stdout }}"
+
+    - name: POST TASK | Send Slack notification
       community.general.slack:
         token: "{{ slack_webhook }}"
-        msg: "Ansible run complete at {{ ansible_date_time.iso8601 }}"
+        msg: "Run on {{ ansible_hostname }} complete and the device is at {{ temperature.stdout }}"
         channel: "#ansible"
         username: "Ansible"
