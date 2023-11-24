@@ -3,6 +3,3 @@ collections:
   - ansible.posix
   - community.docker
   - community.general
-
-roles:
-  - name: macunha1.github_actions_runner
