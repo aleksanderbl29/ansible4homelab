@@ -38,12 +38,7 @@
     name: hyperhdr@{{ ansible_user_id }}.service
     state: stopped
     enabled: false
-  changed_when: "failed == true"
-  register: disable_service
-
-- name: Debug results
-  ansible.builtin.debug:
-    var: disable_service
+  changed_when: false
 
 - name: HYPERHDR | Enable systemd unit @ root user
   become: true
