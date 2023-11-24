@@ -1,15 +1,15 @@
 ---
-- name: TEARDOWN | Disable hyperhdrd @ root user
-  become: true
-  systemd:
-    name: hyperhdr@root.service
-    state: stopped
-    enabled: false
+# - name: TEARDOWN | Disable hyperhdrd @ root user
+#   become: true
+#   systemd:
+#     name: hyperhdr@root.service
+#     state: stopped
+#     enabled: false
 
-- name: TEARDOWN | verify hyperhdrd service is stopped
-  service:
-    name: hyperhdr@root.service
-    state: stopped
+# - name: TEARDOWN | verify hyperhdrd service is stopped
+#   service:
+#     name: hyperhdr@root.service
+#     state: stopped
 
 - name: TEARDOWN | Uninstall hyperhdr
   become: true
@@ -20,7 +20,7 @@
 - name: TEARDOWN | Remove hyperhdr apt gpg key
   become: true
   apt_key:
-    url: "{{ hyperhdr_apt_key_url }}/hyperhdr.pub.key"
+    url: "{{ hyperhdr_apt_key_url }}/hyperhdr.public.apt.gpg.key"
     keyring: "{{ hyperhdr_keyring }}"
     state: absent
 

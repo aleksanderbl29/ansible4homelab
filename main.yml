@@ -5,6 +5,7 @@
   vars_files:
     - ./vars/docker-vars.yml
     - ./vars/hyperhdr-vars.yml
+    - ./vars/hyperion-vars.yml
     - ./secrets/slack_code.yml
 
   pre_tasks:
