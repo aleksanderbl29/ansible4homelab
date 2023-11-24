@@ -46,3 +46,5 @@ When running this playbook [here](./preparation.md) is a list of things that nee
 ## Credits
 
 I have drawn a lot of inspiration from Jeff Geerling's work with ansible. I also use his book to learn ansible while moving my manual deployment to ansible.
+
+The deployment of [HyperHDR](https://github.com/awawa-dev/HyperHDR) is adapted from [ztnel's work](https://github.com/ztnel/ambilight). I am very thankful for them as their work made it very easy for me to do.
