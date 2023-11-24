@@ -9,16 +9,16 @@
 - name: HYPERHDR | Add hyperion apt gpg key
   become: true
   ansible.builtin.apt_key:
-    url: "{{ apt_key_url }}/hyperion.pub.key"
-    keyring: "{{ keyring }}"
+    url: "{{ hyperion_apt_key_url }}/hyperion.pub.key"
+    keyring: "{{ hyperion_keyring }}"
     state: present
 
 - name: HYPERHDR | Add hyperion repository
   become: true
   ansible.builtin.apt_repository:
     repo: >
-      deb [signed-by={{ keyring }}]
-        {{ apt_key_url }}/ {{ ansible_distribution_release | lower }} main
+      deb [signed-by={{ hyperion_keyring }}]
+        {{ hyperion_apt_key_url }}/ {{ ansible_distribution_release | lower }} main
     state: present
 
 - name: HYPERHDR | Update apt packages with new apt repository

@@ -9,16 +9,16 @@
 - name: HYPERHDR | Add hyperhdr apt gpg key
   become: true
   ansible.builtin.apt_key:
-    url: "{{ apt_key_url }}/hyperhdr.public.apt.gpg.key"
-    keyring: "{{ keyring }}"
+    url: "{{ hyperhdr_apt_key_url }}/hyperhdr.public.apt.gpg.key"
+    keyring: "{{ hyperhdr_keyring }}"
     state: present
 
 - name: HYPERHDR | Add hyperhdr repository
   become: true
   ansible.builtin.apt_repository:
     repo: >
-      deb [signed-by={{ keyring }}]
-        {{ apt_key_url }}/ {{ ansible_distribution_release | lower }} main
+      deb [signed-by={{ hyperhdr_keyring }}]
+        {{ hyperhdr_apt_key_url }}/ {{ ansible_distribution_release | lower }} main
     state: present
 
 - name: HYPERHDR | Update apt packages with new apt repository
