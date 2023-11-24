@@ -1,3 +1,7 @@
 ---
-keyring: /usr/share/keyrings/hyperion.pub.gpg
-apt_key_url: https://apt.hyperion-project.org
+keyring: /usr/share/keyrings/hyperhdr.public.apt.gpg.key
+apt_key_url: https://awawa-dev.github.io
+
+
+# keyring: /usr/share/keyrings/hyperion.pub.gpg
+# apt_key_url: https://apt.hyperion-project.org

@@ -1,0 +1,62 @@
+---
+- name: HYPERHDR | Update and upgrade apt packages
+  become: true
+  ansible.builtin.apt:
+    upgrade: true
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: HYPERHDR | Add hyperhdr apt gpg key
+  become: true
+  ansible.builtin.apt_key:
+    url: "{{ apt_key_url }}/hyperhdr.public.apt.gpg.key"
+    keyring: "{{ keyring }}"
+    state: present
+
+- name: HYPERHDR | Add hyperhdr repository
+  become: true
+  ansible.builtin.apt_repository:
+    repo: >
+      deb [signed-by={{ keyring }}]
+        {{ apt_key_url }}/ {{ ansible_distribution_release | lower }} main
+    state: present
+
+- name: HYPERHDR | Update apt packages with new apt repository
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: HYPERHDR | Install hyperhdr
+  become: true
+  ansible.builtin.apt:
+    name: hyperhdr
+
+# restart service as the root user
+- name: HYPERHDR | Disable systemd unit @ {{ ansible_user_id }}    # user
+  become: true
+  ansible.builtin.systemd:
+    name: hyperhdr@{{ ansible_user_id }}.service
+    state: stopped
+    enabled: false
+  changed_when: false
+
+- name: HYPERHDR | Enable systemd unit @ root user
+  become: true
+  ansible.builtin.systemd:
+    name: hyperhdr@root.service
+    state: started
+    enabled: true
+  changed_when: false
+
+- name: HYPERHDR | Verify hyperhdr service
+  become: true
+  ansible.builtin.service:
+    name: hyperhdr@root.service
+    state: started
+
+- name: HYPERHDR | Validate connection to hyperhdr servers
+  ansible.builtin.wait_for:
+    host: "{{ ansible_host }}"
+    port: 8090
+    timeout: 30
+    active_connection_states: ESTABLISHED
