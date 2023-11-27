@@ -83,6 +83,16 @@
       ansible.builtin.debug:
         msg: "{{ temperature.stdout }}"
 
+    - name: POST TASK | Check voltage throttling
+      ansible.builtin.command:
+        cmd: vcgencmd get_throttled
+      changed_when: false
+      register: throttling
+
+    - name: POST TASK | Print voltage throttling
+      ansible.builtin.debug:
+        msg: "{{ throttling.stdout }}"
+
     - name: POST TASK | Send Slack notification
       community.general.slack:
         token: "{{ slack_webhook }}"
