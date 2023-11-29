@@ -9,13 +9,13 @@
     - ../secrets/slack_code.yml
 
   tasks:
-    - name: Teardown hyperhdr
-      ansible.builtin.import_tasks: teardown-tasks/hyperhdr.yml
-      when: "'hyperhdr' in ansible_hostname"
+    # - name: Teardown hyperhdr
+    #   ansible.builtin.import_tasks: teardown-tasks/hyperhdr.yml
+    #   when: "'hyperhdr' in ansible_hostname"
 
-    - name: Teardown hyperion
-      ansible.builtin.import_tasks: teardown-tasks/hyperion.yml
-      when: "'hyperhdr' in ansible_hostname"
+    # - name: Teardown hyperion
+    #   ansible.builtin.import_tasks: teardown-tasks/hyperion.yml
+    #   when: "'hyperhdr' in ansible_hostname"
 
     # - name: Teardown docker containers
     #   ansible.builtin.import_tasks: teardown-tasks/docker-takedown.yml
