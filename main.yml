@@ -64,13 +64,13 @@
       ansible.builtin.import_tasks: tasks/cd.yml
       when: "'rpi4-1' is in ansible_hostname"
 
-    # - name: Deploy hyperion
-    #   ansible.builtin.import_tasks: tasks/hyperion.yml
-    #   when: "'hyperhdr' is in ansible_hostname"
-
-    - name: Deploy hyperhdr
-      ansible.builtin.import_tasks: tasks/hyperhdr.yml
+    - name: Deploy hyperion
+      ansible.builtin.import_tasks: tasks/hyperion.yml
       when: "'hyperhdr' is in ansible_hostname"
+
+    # - name: Deploy hyperhdr
+    #   ansible.builtin.import_tasks: tasks/hyperhdr.yml
+    #   when: "'hyperhdr' is in ansible_hostname"
 
   post_tasks:
     - name: POST TASK | Get temperature of devices
