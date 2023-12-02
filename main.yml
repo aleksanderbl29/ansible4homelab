@@ -25,12 +25,14 @@
         - ansible_memtotal_mb > 2000
         - ansible_facts.os_family == "Debian"
 
-    - name: PRE TASK | Ensure wifi is disabled on wired devices
-      ansible.builtin.cron:
-        name: "Disable wifi"
-        special_time: reboot
-        job: ifconfig wlan0 down
-      when: "'hyperhdr' is not in ansible_hostname"
+
+
+    # - name: PRE TASK | Ensure wifi is disabled on wired devices
+    #   ansible.builtin.cron:
+    #     name: "Disable wifi"
+    #     special_time: reboot
+    #     job: ifconfig wlan0 down
+    #   when: "'hyperhdr' is not in ansible_hostname"
 
   handlers:
     - name: HANDLER | Restart pihole
