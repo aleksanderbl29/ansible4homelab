@@ -12,7 +12,7 @@
   become: false
   with_items:
     - {repo: 'aleksanderbl29/homelab', dest: '/home/{{ ansible_user }}/homelab', version: 'main'}
-  notify: HANDLER | Restart pihole
+  notify: HANDLER | Restart services
 
 - name: CLONE GIT REPO | Clone HomeAssistant Repository
   ansible.builtin.git:

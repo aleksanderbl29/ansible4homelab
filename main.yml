@@ -32,12 +32,17 @@
     #     job: ifconfig wlan0 down
     #   when: "'hyperhdr' is not in ansible_hostname"
 
-  # handlers:
-  #   - name: HANDLER | Restart pihole
-  #     community.docker.docker_compose:
-  #       project_src: /home/{{ ansible_user }}/homelab/pihole/pihole-docker/
-  #       state: present
-  #       recreate: always
+  handlers:
+    - name: HANDLER | Restart services
+      community.docker.docker_compose:
+        project_src: /home/{{ ansible_user }}/homelab{{ item }}
+        state: present
+        recreate: always
+      with_items:
+        # - "/pihole/pihole-docker/"
+        - "/bind9/"
+        - "/dashboard/"
+        - "portainer-traefik/"
 
   tasks:
     - name: Setup Docker
