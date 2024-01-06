@@ -1,15 +1,15 @@
 ---
-# - name: TEARDOWN | Disable hyperhdrd @ root user
-#   become: true
-#   systemd:
-#     name: hyperhdr@root.service
-#     state: stopped
-#     enabled: false
+- name: TEARDOWN | Disable hyperhdrd @ root user
+  become: true
+  systemd:
+    name: hyperhdr@root.service
+    state: stopped
+    enabled: false
 
-# - name: TEARDOWN | verify hyperhdrd service is stopped
-#   service:
-#     name: hyperhdr@root.service
-#     state: stopped
+- name: TEARDOWN | verify hyperhdrd service is stopped
+  service:
+    name: hyperhdr@root.service
+    state: stopped
 
 - name: TEARDOWN | Uninstall hyperhdr
   become: true
