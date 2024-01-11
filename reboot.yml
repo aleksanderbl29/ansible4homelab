@@ -1,0 +1,59 @@
+---
+- name: Reboot homelab
+  hosts: prod
+  become: true
+  vars_files:
+    - ./secrets/slack_code.yml
+
+  pre_tasks:
+    - name: PRE TASK | Ensure apt cache is up to date
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 10800
+        upgrade: "yes"
+      when:
+        - ansible_facts.os_family == "Debian"
+
+  tasks:
+    - name: Reboot HyperHDR
+      ansible.builtin.reboot:
+        pre_reboot_delay: 5
+        reboot_timeout: 300
+        post_reboot_delay: 30
+      when: ansible_hostname == "hyperhdr"
+
+    # - name: Reboot rpi4-1
+    #   ansible.builtin.reboot:
+    #     pre_reboot_delay: 5
+    #     reboot_timeout: 300
+    #     post_reboot_delay: 30
+    #   when: ansible_hostname == "rpi4-1"
+
+
+  post_tasks:
+    - name: POST TASK | Get temperature of devices
+      ansible.builtin.command:
+        cmd: vcgencmd measure_temp
+      changed_when: false
+      register: temperature
+
+    - name: POST TASK | Print temperature
+      ansible.builtin.debug:
+        msg: "{{ temperature.stdout }}"
+
+    - name: POST TASK | Check voltage throttling
+      ansible.builtin.command:
+        cmd: vcgencmd get_throttled
+      changed_when: false
+      register: throttling
+
+    - name: POST TASK | Print voltage throttling
+      ansible.builtin.debug:
+        msg: "{{ throttling.stdout }}"
+
+    - name: POST TASK | Send Slack notification
+      community.general.slack:
+        token: "{{ slack_webhook }}"
+        msg: "Run on {{ ansible_hostname }} complete and the device is at {{ temperature.stdout }}"
+        channel: "#ansible"
+        username: "Ansible"
