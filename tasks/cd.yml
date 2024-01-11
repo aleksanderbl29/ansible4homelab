@@ -64,7 +64,7 @@
 #     search_string: "SEMAPHORE_ACCESS_KEY_ENCRYPTION="
 #     path: /home/{{ ansible_user }}/homelab/semaphore/.env
 
-- name: CD | Deploy ansible semaphore
+- name: CD | (Dont) Deploy ansible semaphore
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/semaphore/
-    state: present
+    state: absent
