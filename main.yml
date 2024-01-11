@@ -6,7 +6,7 @@
     - ./vars/docker-vars.yml
     - ./vars/hyperhdr-vars.yml
     - ./vars/hyperion-vars.yml
-    - ./secrets/slack_code.yml
+    # - ./secrets/slack_code.yml
 
   pre_tasks:
     - name: PRE TASK | Ensure apt cache is up to date
@@ -94,9 +94,9 @@
       ansible.builtin.debug:
         msg: "{{ throttling.stdout }}"
 
-    - name: POST TASK | Send Slack notification
-      community.general.slack:
-        token: "{{ slack_webhook }}"
-        msg: "Run on {{ ansible_hostname }} complete and the device is at {{ temperature.stdout }}"
-        channel: "#ansible"
-        username: "Ansible"
+    # - name: POST TASK | Send Slack notification
+    #   community.general.slack:
+    #     token: "{{ slack_webhook }}"
+    #     msg: "Run on {{ ansible_hostname }} complete and the device is at {{ temperature.stdout }}"
+    #     channel: "#ansible"
+    #     username: "Ansible"
