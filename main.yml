@@ -39,8 +39,8 @@
         state: present
         recreate: always
       with_items:
-        # - "pihole/pihole-docker"
-        - "bind9"
+        - "pihole/pihole-docker"
+        # - "bind9"
         - "dashboard"
         - "portainer-traefik"
 
