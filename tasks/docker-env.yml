@@ -13,6 +13,7 @@
     - { src: "../../homelab/watchtower/.env", dest: "/home/{{ ansible_user }}/homelab/watchtower/.env" }
     - { src: "../../homelab/uptime-kuma/.env", dest: "/home/{{ ansible_user }}/homelab/uptime-kuma/.env" }
     - { src: "../../homelab/cloudflare-tunnel/.env", dest: "/home/{{ ansible_user }}/homelab/cloudflare-tunnel/.env" }
+    - { src: "../../homelab/homepage/.env", dest: "/home/{{ ansible_user }}/homelab/homepage/.env" }
 
 - name: PREPARE DOCKER DEPLOYMENT | Create acme.json files
   ansible.builtin.file:
