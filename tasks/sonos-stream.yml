@@ -1,0 +1,19 @@
+---
+- name: VINYL | Install icecast2
+  ansible.builtin.apt:
+    name: icecast2
+    state: present
+  notify: HANDLER | Restart sonos streaming
+
+- name: VINYL | Enable icecast2
+  ansible.builtin.lineinfile:
+    path: /etc/default/icecast2
+    line: ENABLE=true
+
+    state: present
+
+- name: Install darkice
+  ansible.builtin.apt:
+    name: darkice
+    state: present
+  notify: HANDLER | Restart sonos streaming
