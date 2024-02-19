@@ -6,7 +6,7 @@
   when: "'pihole' in ansible_hostname or 'rpi4-1' in ansible_hostname"
   # notify: Check pihole is running
 
-- name: DEPLOY CONTAINERS | Bind9
+- name: (Dont) DEPLOY CONTAINERS | Bind9
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/bind9/
     state: absent
