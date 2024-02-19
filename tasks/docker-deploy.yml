@@ -64,7 +64,7 @@
 
 - name: DEPLOY CONTAINERS | Homer dashboard
   community.docker.docker_compose:
-    project_src: /home/{{ ansible_user }}/homelab/dashboard/
+    project_src: /home/{{ ansible_user }}/homelab/homer/
     state: present
   when: "ansible_memtotal_mb > 2000"
   # notify: Check dashboard is running
