@@ -6,7 +6,7 @@
     - ./vars/docker-vars.yml
     - ./vars/hyperhdr-vars.yml
     - ./vars/hyperion-vars.yml
-    # - ./secrets/slack_code.yml
+    - ./secrets/slack_code.yml
 
   pre_tasks:
     - name: PRE TASK | Ensure apt cache is up to date
