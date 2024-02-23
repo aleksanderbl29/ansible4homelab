@@ -77,6 +77,20 @@
       when: "'hyperhdr' is in ansible_hostname"
 
   post_tasks:
+    - name: POST TASK | Purge old Docker images
+      ansible.builtin.command:
+        cmd: docker system prune --all --force --volumes
+
+    - name: POST TASK | Get uptime
+      ansible.builtin.command:
+        cmd: uptime
+      changed_when: false
+      register: uptime
+
+    - name: POST TASK | Print uptime
+      ansible.builtin.debug:
+        msg: "{{ uptime.stdout }}"
+
     - name: POST TASK | Get temperature of devices
       ansible.builtin.command:
         cmd: vcgencmd measure_temp
@@ -97,9 +111,9 @@
       ansible.builtin.debug:
         msg: "{{ throttling.stdout }}"
 
-    # - name: POST TASK | Send Slack notification
-    #   community.general.slack:
-    #     token: "{{ slack_webhook }}"
-    #     msg: "Run on {{ ansible_hostname }} complete and the device is at {{ temperature.stdout }}"
-    #     channel: "#ansible"
-    #     username: "Ansible"
+    - name: POST TASK | Send Slack notification
+      community.general.slack:
+        token: "{{ slack_webhook }}"
+        msg: "Run on {{ ansible_hostname }} complete and the device is at {{ temperature.stdout }}"
+        channel: "#ansible"
+        username: "Ansible"
