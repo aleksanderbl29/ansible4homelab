@@ -69,6 +69,13 @@
   when: "ansible_memtotal_mb > 2000"
   # notify: Check dashboard is running
 
+- name: DEPLOY CONTAINERS | Homepage dashboard
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/homepage/
+    state: present
+  when: "ansible_memtotal_mb > 2000"
+  # notify: Check dashboard is running
+
 - name: DEPLOY CONTAINERS | cloudflare tunnel
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/cloudflare-tunnel/
