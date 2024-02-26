@@ -18,6 +18,13 @@
     state: present
   # notify: Check watchtower-monitor is running
 
+- name: DEPLOY CONTAINERS | Postgres
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/postgres/
+    state: present
+  when: "ansible_memtotal_mb > 5000"
+  # notify: Check postgres is running
+
 - name: DEPLOY CONTAINERS | HA - Home Assistant
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/homeassistant/
@@ -82,6 +89,13 @@
     state: present
   when: "ansible_memtotal_mb > 2000"
   # notify: Check cloudflare-tunnel is running
+
+- name: DEPLOY CONTAINERS | Gatus
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/gatus/
+    state: present
+  when: "ansible_memtotal_mb > 2000"
+  # notify: Check gatus is running
 
 - name: DEPLOY CONTAINERS | Check if dns names have changed
   ansible.builtin.find:
