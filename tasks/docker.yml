@@ -71,6 +71,7 @@
     - proxy
     - media
     - external
+    - database
 
 - name: SETUP DOCKER | Setup docker volumes
   community.docker.docker_volume:
