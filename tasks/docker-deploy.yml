@@ -82,3 +82,10 @@
     state: present
   when: "ansible_memtotal_mb > 2000"
   # notify: Check cloudflare-tunnel is running
+
+- name: DEPLOY CONTAINERS | Check if dns names have changed
+  ansible.builtin.find:
+    paths: /home/{{ ansible_user }}/homelab/pihole/
+    patterns: "*.list"
+    age: "5m"
+  notify: HANDLER | Restart PiHole
