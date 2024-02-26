@@ -39,11 +39,15 @@
         state: present
         recreate: always
       with_items:
-        - "pihole/pihole-docker"
-        # - "bind9"
         - "homer"
         - "homepage"
         - "portainer-traefik"
+
+    - name: HANDLER | Restart PiHole
+      community.docker.docker_compose:
+        project_src: /home/{{ ansible_user }}/homelab/pihole/pihole-docker/
+        state: present
+        recreate: always
 
     # - name: HANDLER | Restart sonos streaming
 
