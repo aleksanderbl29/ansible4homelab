@@ -14,6 +14,8 @@
     - { src: "../../homelab/uptime-kuma/.env", dest: "/home/{{ ansible_user }}/homelab/uptime-kuma/.env" }
     - { src: "../../homelab/cloudflare-tunnel/.env", dest: "/home/{{ ansible_user }}/homelab/cloudflare-tunnel/.env" }
     - { src: "../../homelab/homepage/.env", dest: "/home/{{ ansible_user }}/homelab/homepage/.env" }
+    - { src: "../../homelab/postgres/.env", dest: "/home/{{ ansible_user }}/homelab/postgres/.env" }
+    - { src: "../../homelab/gatus/.env", dest: "/home/{{ ansible_user }}/homelab/gatus/.env" }
 
 - name: PREPARE DOCKER DEPLOYMENT | Create acme.json files
   ansible.builtin.file:
