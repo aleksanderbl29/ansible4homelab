@@ -79,3 +79,4 @@
     name: "{{ item }}"
   loop:
     - portainer_data
+  when: "'hyperhdr' is not in ansible_hostname"
