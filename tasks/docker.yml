@@ -72,6 +72,7 @@
     - media
     - external
     - database
+  when: "'hyperhdr' is not in ansible_hostname"
 
 - name: SETUP DOCKER | Setup docker volumes
   community.docker.docker_volume:
