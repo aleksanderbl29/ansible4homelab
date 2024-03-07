@@ -89,10 +89,10 @@
         volumes: true
         builder_cache: true
 
-    - name: POST TASK | Purge old Docker images
-      ansible.builtin.command:
-        cmd: docker system prune --all --force --volumes
-      # changed_when: false
+    # - name: POST TASK | Purge old Docker images
+    #   ansible.builtin.command:
+    #     cmd: docker system prune --all --force --volumes
+    #   # changed_when: false
 
     - name: POST TASK | Get uptime
       ansible.builtin.command:
