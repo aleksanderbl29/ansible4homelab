@@ -82,12 +82,12 @@
 
   post_tasks:
     - name: POST TASK | Prune old Docker images and volumes
-      ansible.community.docker_prune:
+      community.docker.docker_prune:
         containers: true
         images: true
         networks: true
-        volumes:  true
-        builder_cache:  true
+        volumes: true
+        builder_cache: true
 
     - name: POST TASK | Purge old Docker images
       ansible.builtin.command:
