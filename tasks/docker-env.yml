@@ -28,18 +28,18 @@
 - name: PREPARE DOCKER DEPLOYMENT | Disable systemd-resolved
   ansible.builtin.shell:
     cmd: "sudo sed -r -i.orig 's/#?DNSStubListener=yes/DNSStubListener=no/g' /etc/systemd/resolved.conf"
-  when: ansible_distribution == "Ubuntu"
+  when: ansible_os_family == "Debian"
   changed_when: false
 
 - name: PREPARE DOCKER DEPLOYMENT | Disable systemd-resolved
   ansible.builtin.shell:
     cmd: "sudo sh -c 'rm /etc/resolv.conf && ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf'"
-  when: ansible_distribution == "Ubuntu"
+  when: ansible_os_family == "Debian"
   changed_when: false
 
 - name: PREPARE DOCKER DEPLOYMENT | Disable systemd-resolved
   ansible.builtin.systemd:
     name: systemd-resolved
     state: restarted
-  when: ansible_distribution == "Ubuntu"
+  when: ansible_os_family == "Debian"
   changed_when: false
