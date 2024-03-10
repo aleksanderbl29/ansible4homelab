@@ -22,7 +22,7 @@
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/postgres/
     state: present
-  when: "ansible_memtotal_mb > 5000"
+  when: "ansible_memtotal_mb > 5000 or 'rpi4-1' in ansible_hostname"
   # notify: Check postgres is running
 
 - name: DEPLOY CONTAINERS | HA - Home Assistant
@@ -30,7 +30,7 @@
     project_src: /home/{{ ansible_user }}/homelab/homeassistant/
     state: present
     restarted: true
-  when: "'ha' in ansible_hostname and ha_config_change.changed == 1"
+  when: "'rpi4-2' in ansible_hostname"
   # notify: Check Home Assistant is running
 
 - name: DEPLOY CONTAINERS | UptimeKuma
@@ -61,13 +61,6 @@
     state: present
   when: "'rpi4-1' not in ansible_hostname"
   # notify: Check traefik is running
-
-- name: DEPLOY CONTAINERS | Secondary - portainer agent
-  community.docker.docker_compose:
-    project_src: /home/{{ ansible_user }}/homelab/portainer-agent/
-    state: present
-  when: "'rpi4-1' not in ansible_hostname"
-  # notify: Check portainer is running
 
 - name: DEPLOY CONTAINERS | Homer dashboard
   community.docker.docker_compose:
