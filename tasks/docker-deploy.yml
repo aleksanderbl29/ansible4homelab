@@ -68,14 +68,14 @@
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/homer/
     state: present
-  when: "ansible_memtotal_mb > 2000 and 'rpi4-1' in ansible_hostname"
+  when: "'rpi4-1' in ansible_hostname"
   # notify: Check dashboard is running
 
 - name: DEPLOY CONTAINERS | Homepage dashboard
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/homepage/
     state: present
-  when: "ansible_memtotal_mb > 2000 and 'rpi4-1' in ansible_hostname"
+  when: "'rpi4-1' in ansible_hostname"
   # notify: Check dashboard is running
 
 - name: DEPLOY CONTAINERS | cloudflare tunnel
@@ -89,7 +89,7 @@
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/gatus/
     state: present
-  when: "ansible_memtotal_mb > 2000 and 'rpi4-1' in ansible_hostname"
+  when: "'rpi4-1' in ansible_hostname"
   # notify: Check gatus is running
 
 - name: DEPLOY CONTAINERS | Check if dns names have changed
