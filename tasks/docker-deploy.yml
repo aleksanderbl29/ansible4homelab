@@ -96,3 +96,4 @@
     patterns: "*.list"
     age: "5m"
   notify: HANDLER | Restart PiHole
+  when: "'pihole' in ansible_hostname or 'rpi4-1' in ansible_hostname"
