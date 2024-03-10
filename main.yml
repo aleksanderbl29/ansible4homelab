@@ -62,7 +62,7 @@
 
     - name: Prepare Home Assistant deployment
       ansible.builtin.import_tasks: tasks/home-assistant.yml
-      when: "'ha' is in ansible_hostname"
+      when: "'rpi4-2' is in ansible_hostname"
 
     - name: Prepare Docker deployment
       ansible.builtin.import_tasks: tasks/docker-env.yml
