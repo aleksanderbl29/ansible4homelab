@@ -22,7 +22,8 @@
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/postgres/
     state: present
-  when: "ansible_memtotal_mb > 5000 or 'rpi4-1' in ansible_hostname"
+  # when: "ansible_memtotal_mb > 5000 or 'rpi4-1' in ansible_hostname"
+  when: "'rpi4-1' in ansible_hostname"
   # notify: Check postgres is running
 
 - name: DEPLOY CONTAINERS | HA - Home Assistant
