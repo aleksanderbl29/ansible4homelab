@@ -32,6 +32,11 @@
     #     job: ifconfig wlan0 down
     #   when: "'hyperhdr' is not in ansible_hostname"
 
+    - name: PRE TASK | Mount SMB shares
+      ansible.builtin.shell:
+        cmd: mount -a
+      when: "'hyperhdr' is not in ansible_hostname"
+
   handlers:
     - name: HANDLER | Restart services
       community.docker.docker_compose:
