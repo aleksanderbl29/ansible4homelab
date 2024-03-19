@@ -78,6 +78,13 @@
   when: "'rpi4-1' in ansible_hostname"
   # notify: Check dashboard is running
 
+- name: DEPLOY CONTAINERS | Gitea
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/homelab/gitea/
+    state: present
+  when: "'rpi4-1' in ansible_hostname"
+  # notify: Check dashboard is running
+
 - name: DEPLOY CONTAINERS | cloudflare tunnel
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/cloudflare-tunnel/
