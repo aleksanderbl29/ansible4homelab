@@ -21,7 +21,7 @@
 - name: DEPLOY CONTAINERS | Postgres
   community.docker.docker_compose:
     project_src: /home/{{ ansible_user }}/homelab/postgres/
-    state: present
+    state: absent
   # when: "ansible_memtotal_mb > 5000 or 'rpi4-1' in ansible_hostname"
   when: "'rpi4-1' in ansible_hostname"
   # notify: Check postgres is running
