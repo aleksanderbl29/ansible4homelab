@@ -86,18 +86,18 @@
       when: "'hyperhdr' is in ansible_hostname"
 
   post_tasks:
-    - name: POST TASK | Prune old Docker images and volumes
-      community.docker.docker_prune:
-        containers: true
-        images: true
-        networks: true
-        volumes: true
-        builder_cache: true
+    # - name: POST TASK | Prune old Docker images and volumes
+    #   community.docker.docker_prune:
+    #     containers: true
+    #     images: true
+    #     networks: true
+    #     volumes: true
+    #     builder_cache: true
 
-    # - name: POST TASK | Purge old Docker images
-    #   ansible.builtin.command:
-    #     cmd: docker system prune --all --force --volumes
-    #   # changed_when: false
+    - name: POST TASK | Purge old Docker images
+      ansible.builtin.command:
+        cmd: docker system prune --all --force --volumes
+      # changed_when: false
 
     - name: POST TASK | Get uptime
       ansible.builtin.command:
