@@ -1,25 +1,25 @@
 ---
 - name: DEPLOY CONTAINERS | PiHole DNS
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: /home/{{ ansible_user }}/homelab/pihole/pihole-docker/
     state: present
   when: "'pihole' in ansible_hostname or 'rpi4-1' in ansible_hostname"
   # notify: Check pihole is running
 
 # - name: DEPLOY CONTAINERS | Bind9
-#   community.docker.docker_compose:
+#   community.docker.docker_compose_v2:
 #     project_src: /home/{{ ansible_user }}/homelab/bind9/
 #     state: present
 #   when: "'rpi4-1' in ansible_hostname"
 
 - name: DEPLOY CONTAINERS | Watchtower
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: /home/{{ ansible_user }}/homelab/watchtower/
     state: present
   # notify: Check watchtower-monitor is running
 
 - name: DEPLOY CONTAINERS | Postgres
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: /home/{{ ansible_user }}/homelab/postgres/
     state: absent
   # when: "ansible_memtotal_mb > 5000 or 'rpi4-1' in ansible_hostname"
@@ -27,7 +27,7 @@
   # notify: Check postgres is running
 
 - name: DEPLOY CONTAINERS | HA - Home Assistant
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: /home/{{ ansible_user }}/homelab/homeassistant/
     state: present
     restarted: true
@@ -35,21 +35,21 @@
   # notify: Check Home Assistant is running
 
 - name: DEPLOY CONTAINERS | UptimeKuma
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: /home/{{ ansible_user }}/homelab/uptime-kuma/
     state: present
   when: "ansible_memtotal_mb > 2000 and 'rpi4-1' in ansible_hostname"
   # notify: Check uptimekuma is running
 
 - name: DEPLOY CONTAINERS | littlelink-server
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: /home/{{ ansible_user }}/homelab/littlelink-server/
     state: present
   when: "ansible_memtotal_mb > 2000 and 'rpi4-1' in ansible_hostname"
   # notify: Check littlelink-server is running
 
 - name: DEPLOY CONTAINERS | HA - Portainer and traefik
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: /home/{{ ansible_user }}/homelab/portainer-traefik/
     state: present
   when: "'rpi4-1' in ansible_hostname"
@@ -58,42 +58,42 @@
     # - Check traefik is running
 
 - name: DEPLOY CONTAINERS | Secondary - traefik
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: /home/{{ ansible_user }}/homelab/traefik/
     state: present
   when: "'rpi4-1' not in ansible_hostname"
   # notify: Check traefik is running
 
 - name: DEPLOY CONTAINERS | Homer dashboard
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: /home/{{ ansible_user }}/homelab/homer/
     state: present
   when: "'rpi4-1' in ansible_hostname"
   # notify: Check dashboard is running
 
 - name: DEPLOY CONTAINERS | Homepage dashboard
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: /home/{{ ansible_user }}/homelab/homepage/
     state: present
   when: "'rpi4-1' in ansible_hostname"
   # notify: Check dashboard is running
 
 - name: DEPLOY CONTAINERS | Gitea
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: /home/{{ ansible_user }}/homelab/gitea/
     state: present
   when: "'rpi4-1' in ansible_hostname"
   # notify: Check dashboard is running
 
 - name: DEPLOY CONTAINERS | cloudflare tunnel
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: /home/{{ ansible_user }}/homelab/cloudflare-tunnel/
     state: present
   when: "ansible_memtotal_mb > 2000"
   # notify: Check cloudflare-tunnel is running
 
 - name: DEPLOY CONTAINERS | Gatus
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: /home/{{ ansible_user }}/homelab/gatus/
     state: present
   when: "'rpi4-1' in ansible_hostname"
