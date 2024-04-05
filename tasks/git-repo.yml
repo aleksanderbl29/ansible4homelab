@@ -9,8 +9,8 @@
     repo: "https://github.com/{{ item.repo }}"
     dest: "{{ item.dest }}"
     version: "{{ item.version }}"
+    force: true
   become: false
-  force: true
   with_items:
     - {repo: 'aleksanderbl29/homelab', dest: '/home/{{ ansible_user }}/homelab', version: 'main'}
   notify: HANDLER | Restart services
