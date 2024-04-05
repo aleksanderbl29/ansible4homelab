@@ -43,6 +43,7 @@
         project_src: /home/{{ ansible_user }}/homelab/{{ item }}/
         state: present
         recreate: always
+        force: true
       with_items:
         - "homer"
         - "homepage"
