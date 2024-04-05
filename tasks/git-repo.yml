@@ -10,6 +10,7 @@
     dest: "{{ item.dest }}"
     version: "{{ item.version }}"
   become: false
+  force: true
   with_items:
     - {repo: 'aleksanderbl29/homelab', dest: '/home/{{ ansible_user }}/homelab', version: 'main'}
   notify: HANDLER | Restart services
