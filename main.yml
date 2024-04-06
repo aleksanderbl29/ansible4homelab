@@ -39,18 +39,17 @@
 
   handlers:
     - name: HANDLER | Restart services
-      community.docker.docker_compose:
+      community.docker.docker_compose_v2:
         project_src: /home/{{ ansible_user }}/homelab/{{ item }}/
         state: present
         recreate: always
-        force: true
       with_items:
         - "homer"
         - "homepage"
         - "portainer-traefik"
 
     - name: HANDLER | Restart PiHole
-      community.docker.docker_compose:
+      community.docker.docker_compose_v2:
         project_src: /home/{{ ansible_user }}/homelab/pihole/pihole-docker/
         state: present
         recreate: always
