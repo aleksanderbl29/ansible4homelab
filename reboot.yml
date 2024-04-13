@@ -15,19 +15,19 @@
         - ansible_facts.os_family == "Debian"
 
   tasks:
-    - name: Reboot HyperHDR
-      ansible.builtin.reboot:
-        pre_reboot_delay: 5
-        reboot_timeout: 300
-        post_reboot_delay: 30
-      when: ansible_hostname == "hyperhdr"
-
-    # - name: Reboot rpi4-1
+    # - name: Reboot HyperHDR
     #   ansible.builtin.reboot:
     #     pre_reboot_delay: 5
     #     reboot_timeout: 300
     #     post_reboot_delay: 30
-    #   when: ansible_hostname == "rpi4-1"
+    #   when: ansible_hostname == "hyperhdr"
+
+    - name: Reboot rpi4-1
+      ansible.builtin.reboot:
+        pre_reboot_delay: 5
+        reboot_timeout: 300
+        post_reboot_delay: 30
+      when: ansible_hostname == "rpi4-1"
 
 
   post_tasks:
