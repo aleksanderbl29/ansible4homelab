@@ -10,6 +10,7 @@
     dest: "{{ item.dest }}"
     version: "{{ item.version }}"
     force: true
+    depth: 1
   become: false
   with_items:
     - {repo: 'aleksanderbl29/homelab', dest: '/home/{{ ansible_user }}/homelab', version: 'main'}
