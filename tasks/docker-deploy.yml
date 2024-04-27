@@ -30,7 +30,6 @@
   community.docker.docker_compose_v2:
     project_src: /home/{{ ansible_user }}/homelab/homeassistant/
     state: present
-    restarted: true
   when: "'rpi4-2' in ansible_hostname"
   # notify: Check Home Assistant is running
 
