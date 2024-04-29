@@ -87,8 +87,16 @@
         file: tasks/cd.yml
       when: "'rpi4-1' is in ansible_hostname"
 
+    # - name: Deploy hyperhdr
+    #   ansible.builtin.import_tasks:
+    #     file: tasks/hyperhdr.yml
+    #   when: "'hyperhdr' is in ansible_hostname"
+
     - name: Deploy hyperhdr
-      ansible.builtin.import_tasks: tasks/hyperhdr.yml
+      ansible.builtin.import_role:
+        name: aleksanderbl29.hyperhdr
+      when: "'hyperhdr' is in ansible_hostname"
+
       when: "'hyperhdr' is in ansible_hostname"
 
   post_tasks:
