@@ -3,3 +3,8 @@ collections:
   - ansible.posix
   - community.docker
   - community.general
+
+roles:
+#   - name: aleksanderbl29.sonos_stream
+  - name: aleksanderbl29.hyperhdr
+    version: v1.0.0
