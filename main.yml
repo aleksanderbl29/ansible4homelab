@@ -97,6 +97,9 @@
         name: aleksanderbl29.hyperhdr
       when: "'hyperhdr' is in ansible_hostname"
 
+    - name: Deploy sonos-stream
+      ansible.builtin.import_role:
+        name: aleksanderbl29.sonos_stream
       when: "'hyperhdr' is in ansible_hostname"
 
   post_tasks:
