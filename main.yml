@@ -58,27 +58,33 @@
 
   tasks:
     - name: Setup Docker
-      ansible.builtin.import_tasks: tasks/docker.yml
-      # when: "'hyperhdr' is not in ansible_hostname"
+      ansible.builtin.import_tasks:
+        file: tasks/docker.yml
+      when: "'hyperhdr' is not in ansible_hostname"
 
     - name: Clone Git Repos
-      ansible.builtin.import_tasks: tasks/git-repo.yml
+      ansible.builtin.import_tasks:
+        file: tasks/git-repo.yml
       when: "'hyperhdr' is not in ansible_hostname"
 
     - name: Prepare Home Assistant deployment
-      ansible.builtin.import_tasks: tasks/home-assistant.yml
+      ansible.builtin.import_tasks:
+        file: tasks/home-assistant.yml
       when: "'rpi4-2' is in ansible_hostname"
 
     - name: Prepare Docker deployment
-      ansible.builtin.import_tasks: tasks/docker-env.yml
+      ansible.builtin.import_tasks:
+        file: tasks/docker-env.yml
       when: "'hyperhdr' is not in ansible_hostname"
 
     - name: Deploy Docker Containers
-      ansible.builtin.import_tasks: tasks/docker-deploy.yml
+      ansible.builtin.import_tasks:
+        file: tasks/docker-deploy.yml
       when: "'hyperhdr' is not in ansible_hostname"
 
     - name: Setup CD
-      ansible.builtin.import_tasks: tasks/cd.yml
+      ansible.builtin.import_tasks:
+        file: tasks/cd.yml
       when: "'rpi4-1' is in ansible_hostname"
 
     - name: Deploy hyperhdr
