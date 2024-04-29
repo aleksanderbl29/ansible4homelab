@@ -112,6 +112,7 @@
       ansible.builtin.command:
         cmd: docker system prune --all --force --volumes
       # changed_when: false
+      when: "'hyperhdr' is not in ansible_hostname"
 
     - name: POST TASK | Get uptime
       ansible.builtin.command:
