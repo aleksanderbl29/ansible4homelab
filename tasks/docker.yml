@@ -71,7 +71,7 @@
     - proxy
     - media
     - external
-    - database
+    # - database
   when: "'hyperhdr' is not in ansible_hostname"
 
 - name: SETUP DOCKER | Setup docker volumes
