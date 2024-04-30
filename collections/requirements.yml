@@ -5,6 +5,7 @@ collections:
   - community.general
 
 roles:
-#   - name: aleksanderbl29.sonos_stream
+  - name: aleksanderbl29.sonos_stream
+    # version: v0.1.0
   - name: aleksanderbl29.hyperhdr
     version: v1.0.0
