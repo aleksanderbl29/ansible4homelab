@@ -39,6 +39,10 @@ flowchart TD
   main_tasks --> clone_repos  --> |If hostname includes HA| clone_ha_repo
 ``````
 
+## Dependencies
+
+This playbook currently uses two roles that I maintain for deploying [HyperHDR](https://github.com/aleksanderbl29/ansible-role-hyperhdr) and [a local radio for streaming vinyl records](https://github.com/aleksanderbl29/ansible-role-sonos-stream).
+
 ## Preparation
 
 When running this playbook [here](./preparation.md) is a list of things that needs to be done first, e.g. collection tokens and creating secrets
