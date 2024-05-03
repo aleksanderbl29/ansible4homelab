@@ -1,0 +1,17 @@
+---
+# restart service as the root user
+- name: Disable systemd unit @ {{ ansible_user_id }}    # user
+  become: true
+  ansible.builtin.systemd:
+    name: hyperhdr@{{ ansible_user_id }}.service
+    state: stopped
+    enabled: false
+  changed_when: false
+
+- name: Enable systemd unit @ root user
+  become: true
+  ansible.builtin.systemd:
+    name: hyperhdr@root.service
+    state: started
+    enabled: true
+  changed_when: false

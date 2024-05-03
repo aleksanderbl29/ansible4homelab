@@ -1,0 +1,13 @@
+---
+- name: Ensure apt is up to date
+  become: true
+  ansible.builtin.apt:
+    upgrade: true
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Ensure gpg-agent is installed
+  become: true
+  ansible.builtin.apt:
+    name: gpg-agent
+    state: present

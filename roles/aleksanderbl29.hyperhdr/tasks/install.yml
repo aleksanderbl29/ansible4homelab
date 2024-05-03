@@ -1,0 +1,5 @@
+---
+- name: Install hyperhdr
+  become: true
+  ansible.builtin.apt:
+    name: hyperhdr

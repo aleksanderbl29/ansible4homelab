@@ -1,0 +1,4 @@
+---
+# vars file for hyperhdr
+hyperhdr_keyring: /usr/share/keyrings/hyperhdr.public.apt.gpg.key
+hyperhdr_apt_key_url: https://awawa-dev.github.io

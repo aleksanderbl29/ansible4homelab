@@ -1,0 +1,14 @@
+---
+# tasks file for sonos-streamer
+- name: Include role tasks
+  ansible.builtin.include_tasks: "{{ item }}"
+  loop:
+    - prerequisites.yml
+    - install_icecast.yml
+    - install_darkice.yml
+    - configure.yml
+    - startup.yml
+
+- name: Include verify tasks
+  ansible.builtin.include_tasks: verify.yml
+  when: disable_verification is false

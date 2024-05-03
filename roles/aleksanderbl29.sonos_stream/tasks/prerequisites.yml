@@ -1,0 +1,19 @@
+---
+- name: Ensure apt cache is up to date
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 10800
+    upgrade: "yes"
+  when:
+    - ansible_facts.os_family == "Debian"
+
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ package }}"
+    state: present
+    update_cache: true
+  loop:
+    - libmp3lame0
+    - libtwolame0
+  loop_control:
+    loop_var: package

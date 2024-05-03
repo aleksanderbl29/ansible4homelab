@@ -1,0 +1,51 @@
+---
+- name: Install darkice and alsa-utils
+  ansible.builtin.apt:
+    name: darkice
+    state: present
+    update_cache: true
+  loop:
+    - alsa-utils
+    - darkice
+  loop_control:
+    loop_var: package
+
+- name: Create darkice configuration directory
+  ansible.builtin.file:
+    path: /home/{{ ansible_user }}/darkice
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    # mode: "0644"
+    mode: "777"
+
+- name: Create darkice etc directory
+  ansible.builtin.file:
+    path: /etc/darkice
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    # mode: "0644"
+    mode: "777"
+
+- name: Copy darkice configuration file
+  ansible.builtin.copy:
+    src: ../files/darkice.cfg
+    dest: /home/{{ ansible_user }}/darkice/darkice.cfg
+    owner: "{{ ansible_user }}"
+    # mode: "0644"
+    mode: "777"
+
+- name: Copy darkice configuration file to another place
+  ansible.builtin.copy:
+    src: ../files/darkice.cfg
+    dest: /etc/darkice.cfg
+    owner: "{{ ansible_user }}"
+    # mode: "0644"
+    mode: "777"
+
+- name: Copy darkice daemon file
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/x20mar/darkice-with-mp3-for-raspberry-pi/master/init.d-darkice
+    dest: /etc/init.d/darkice
+    mode: '0755'

@@ -1,0 +1,37 @@
+---
+galaxy_info:
+  role_name: sonos_stream
+  author: aleksanderbl29
+  description: Ansible role to deploy a local radio for sonos streaming of vinyl records on debian based systems.
+
+  # If the issue tracker for your role is not on github, uncomment the
+  # next line and provide a value
+  # issue_tracker_url: http://example.com/issue/tracker
+
+  license: "license (BSD, MIT)"
+
+  min_ansible_version: '2.11'
+
+  # If this a Container Enabled role, provide the minimum Ansible Container version.
+  # min_ansible_container_version:
+
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - 'sonos'
+    - 'radio'
+    - 'vinyl'
+    - 'streaming'
+    - 'music'
+    - 'icecast'
+    - 'darkice'
+
+dependencies: []
+# List your role dependencies here, one per line. Be sure to remove the '[]' above,
+# if you add dependencies to this list.

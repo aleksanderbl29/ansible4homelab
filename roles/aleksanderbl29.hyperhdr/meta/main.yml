@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: aleksanderbl29
+  description: Role to deploy hyperhdr on a raspberry pi
+  license: license (GPL-3.0-only)
+  min_ansible_version: '2.1'
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - hyperhdr
+
+dependencies: []
