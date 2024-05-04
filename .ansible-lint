@@ -3,3 +3,7 @@ skip_list:
   - no-changed-when
   - risky-shell-pipe
   - var-naming[no-role-prefix]
+
+exclude_paths:
+  - roles/
+  -
