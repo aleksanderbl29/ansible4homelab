@@ -18,7 +18,7 @@
     state: present
   # notify: Check watchtower-monitor is running
 
-- name: DEPLOY CONTAINERS | Postgres
+- name: DEPLOY CONTAINERS | Ensure postgres is not running
   community.docker.docker_compose_v2:
     project_src: /home/{{ ansible_user }}/homelab/postgres/
     state: absent
