@@ -17,6 +17,10 @@ inventory.ini
 /secrets
 cd.inventory.ini
 
+## Roles and collections
+ansible_roles/
+ansible_collections/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
