@@ -106,6 +106,12 @@
         disable_verification: true
       when: "'hyperhdr' is in ansible_hostname"
 
+    - name: Setup figurine
+      ansible.builtin.import_role:
+        name: ironicbadger.figurine
+      when:
+        - ansible_memtotal_mb > 2000
+
   post_tasks:
     # - name: POST TASK | Prune old Docker images and volumes
     #   community.docker.docker_prune:
