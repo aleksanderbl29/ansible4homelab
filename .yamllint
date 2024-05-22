@@ -3,7 +3,8 @@ extends: default
 
 ignore: |
   secrets/
-  roles/
+  ansible_roles/
+  ansible_collections/
 
 rules:
   line-length:
