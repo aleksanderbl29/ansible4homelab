@@ -9,3 +9,5 @@ roles:
     version: v0.2.0
   - name: aleksanderbl29.hyperhdr
     version: v1.0.0
+  - name: ironicbadger.figurine
+    version: 1.0.3
