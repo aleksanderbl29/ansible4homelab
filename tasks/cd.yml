@@ -1,3 +1,4 @@
+---
 - name: CD | Create directory "deployment"
   ansible.builtin.file:
     path: /home/{{ ansible_user }}/deployment
