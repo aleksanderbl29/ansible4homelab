@@ -65,6 +65,6 @@
 #     path: /home/{{ ansible_user }}/homelab/semaphore/.env
 
 - name: CD | (Dont) Deploy ansible semaphore
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: /home/{{ ansible_user }}/homelab/semaphore/
     state: absent
