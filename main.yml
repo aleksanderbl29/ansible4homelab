@@ -109,6 +109,7 @@
     - name: Setup figurine
       ansible.builtin.import_role:
         name: ironicbadger.figurine
+      become: true
       when:
         - ansible_memtotal_mb > 2000
 
