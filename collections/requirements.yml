@@ -6,7 +6,7 @@ collections:
 
 roles:
   - name: aleksanderbl29.sonos_stream
-    version: v0.2.1
+    version: v0.2.2
   - name: aleksanderbl29.hyperhdr
     version: v1.0.0
   - name: ironicbadger.figurine
