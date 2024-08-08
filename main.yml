@@ -1,6 +1,7 @@
 ---
 - name: Homelab
   hosts: prod
+  # hosts: rpi3
   become: true
   vars_files:
     - ./vars/docker-vars.yml
@@ -9,13 +10,13 @@
     - ./secrets/slack_code.yml
 
   pre_tasks:
-#    - name: PRE TASK | Ensure apt cache is up to date
-#      ansible.builtin.apt:
-#        update_cache: true
-#        cache_valid_time: 10800
-#        upgrade: "yes"
-#      when:
-#        - ansible_facts.os_family == "Debian"
+    - name: PRE TASK | Ensure apt cache is up to date
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 10800
+        upgrade: "yes"
+      when:
+        - ansible_facts.os_family == "Debian"
 
     - name: PRE TASK | Ensure Nala is installed on performant devices
       ansible.builtin.apt:
@@ -103,7 +104,7 @@
       ansible.builtin.import_role:
         name: aleksanderbl29.sonos_stream
       vars:
-        disable_verification: true
+        # disable_verification: true
       when: "'hyperhdr' is in ansible_hostname"
 
     - name: Setup figurine
