@@ -17,6 +17,7 @@
     - { src: "../../homelab/postgres/.env", dest: "/home/{{ ansible_user }}/homelab/postgres/.env" }
     - { src: "../../homelab/gatus/.env", dest: "/home/{{ ansible_user }}/homelab/gatus/.env" }
     - { src: "../../homelab/gitea/.env", dest: "/home/{{ ansible_user }}/homelab/gitea/.env" }
+    - { src: "../../homelab/stirling-pdf/.env", dest: "/home/{{ ansible_user }}/homelab/stirling-pdf/.env" }
 
 - name: PREPARE DOCKER DEPLOYMENT | Create acme.json files
   ansible.builtin.file:
