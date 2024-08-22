@@ -98,12 +98,12 @@
   when: "'rpi4-1' in ansible_hostname"
   # notify: Check gatus is running
 
-- name: DEPLOY CONTAINERS | Stirling pdf
-  community.docker.docker_compose_v2:
-    project_src: /home/{{ ansible_user }}/homelab/stirling-pdf/
-    state: present
-  when: "'rpi4-1' in ansible_hostname"
-  # notify: Check gatus is running
+# - name: DEPLOY CONTAINERS | Stirling pdf
+#   community.docker.docker_compose_v2:
+#     project_src: /home/{{ ansible_user }}/homelab/stirling-pdf/
+#     state: present
+#   when: "'rpi4-1' in ansible_hostname"
+#   # notify: Check gatus is running
 
 - name: DEPLOY CONTAINERS | Docker-cv
   community.docker.docker_compose_v2:
